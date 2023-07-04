@@ -1,0 +1,16 @@
+description: Titta Eye Tracking Send Message.
+version: 0.2.0
+author: "Bob Rosbag"
+url: "http://osdoc.cogsci.nl/"
+category: "Titta Eye Tracking"
+date: "2023"
+controls:
+-
+    type: "line_edit"
+    var: "message"
+    label: "Send message to the Eye Tracker"
+    name: "line_edit_widget_message"
+    tooltip: "An example line_edit widget"
+-
+    type: "text"
+    label: "Version 0.2.0"
