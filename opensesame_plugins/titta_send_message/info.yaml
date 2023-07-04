@@ -1,5 +1,5 @@
 description: Titta Eye Tracking Send Message.
-version: 0.2.0
+version: 0.2.1
 author: "Bob Rosbag"
 url: "http://osdoc.cogsci.nl/"
 category: "Titta Eye Tracking"
@@ -13,4 +13,4 @@ controls:
     tooltip: "An example line_edit widget"
 -
     type: "text"
-    label: "Version 0.2.0"
+    label: "Version 0.2.1"
