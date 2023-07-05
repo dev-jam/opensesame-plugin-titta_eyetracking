@@ -1,5 +1,5 @@
 description: Titta Eye Tracking Init.
-version: 0.2.1
+version: 0.3.0
 author: "Bob Rosbag"
 url: "http://osdoc.cogsci.nl/"
 category: "Titta Eye Tracking"
@@ -10,6 +10,12 @@ controls:
     var: "dummy_mode"
     label: "Dummy mode"
     name: "checkbox_widget_dummy_mode"
+    tooltip: "An example checkbox"
+-
+    type: "checkbox"
+    var: "verbose"
+    label: "Verbose mode"
+    name: "checkbox_widget_verbose_mode"
     tooltip: "An example checkbox"
 -
     type: "combobox"
@@ -54,4 +60,4 @@ controls:
     To minimize the risk of missing samples, the current repository uses TittaPy (pip install TittaPy), a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker."
 -
     type: "text"
-    label: "Version 0.2.1"
+    label: "Version 0.3.0"

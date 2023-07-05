@@ -1,5 +1,5 @@
 description: Titta Eye Tracking Start Recording.
-version: 0.2.1
+version: 0.3.0
 author: "Bob Rosbag"
 url: "http://osdoc.cogsci.nl/"
 category: "Titta Eye Tracking"
@@ -10,4 +10,4 @@ controls:
     label: "Start recording item"
 -
     type: "text"
-    label: "Version 0.2.1"
+    label: "Version 0.3.0"

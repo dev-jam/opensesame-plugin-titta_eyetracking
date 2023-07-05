@@ -7,12 +7,14 @@ domain.
 from libopensesame.py3compat import *
 from libopensesame.item import item
 from libqtopensesame.items.qtautoplugin import qtautoplugin
+from libopensesame.exceptions import osexception
+from libopensesame import debug
 
 
 class titta_calibrate(item):
 
     # Provide an informative description for your plug-in.
-    description = 'An example new-style plug-in'
+    description = 'Titta item to start calibration'
 
     def reset(self):
         """Resets plug-in to initial values."""
@@ -22,18 +24,33 @@ class titta_calibrate(item):
         """The preparation phase of the plug-in goes here."""
         # Call the parent constructor.
         item.prepare(self)
+        self._check_init()
 
     def run(self):
         """The run phase of the plug-in goes here."""
         from titta import helpers_tobii
         self.fixation_point = helpers_tobii.MyDot2(self.experiment.window)
         
+        self._show_message('Starting calibration')
         #  Calibrate
         if self.experiment.titta_bimonocular_calibration == 'yes':
             self.experiment.tracker.calibrate(self.experiment.window, eye='left', calibration_number='first')
             self.experiment.tracker.calibrate(self.experiment.window, eye='right', calibration_number='second')
         elif self.experiment.titta_bimonocular_calibration == 'no':
             self.experiment.tracker.calibrate(self.experiment.window)
+
+    def _check_init(self):
+        if hasattr(self.experiment, "titta_dummy_mode"):
+            self.dummy_mode = self.experiment.titta_dummy_mode
+            self.verbose = self.experiment.titta_verbose
+        else:
+            raise osexception(
+                    u'You should have one instance of `titta_init` at the start of your experiment')
+
+    def _show_message(self, message):
+        debug.msg(message)
+        if self.verbose == u'yes':
+            print(message)
 
 
 class qttitta_calibrate(titta_calibrate, qtautoplugin):

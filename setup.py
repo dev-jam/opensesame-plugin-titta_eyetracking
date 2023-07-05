@@ -33,7 +33,7 @@ def get_readme():
 
 setup(
     name='opensesame-plugin-titta_eyetracking',
-    version='0.2.1',
+    version='0.3.0',
     description='Titta Eye Tracking plugin for OpenSesame',
     long_description=get_readme(),
     long_description_content_type='text/markdown',

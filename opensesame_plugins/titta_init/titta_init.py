@@ -7,16 +7,19 @@ domain.
 from libopensesame.py3compat import *
 from libopensesame.item import item
 from libqtopensesame.items.qtautoplugin import qtautoplugin
+from libopensesame.exceptions import osexception
+from libopensesame import debug
 import os
 
 class titta_init(item):
 
     # Provide an informative description for your plug-in.
-    description = 'An example new-style plug-in'
+    description = 'Titta initialisation item'
 
     def reset(self):
         """Resets plug-in to initial values."""
         self.var.dummy_mode = 'no'  # yes = checked, no = unchecked
+        self.var.verbose = 'no'  # yes = checked, no = unchecked
         self.var.tracker = 'Tobii Pro Spectrum'
         self.var.bimonocular_calibration = 'no'
         self.var.ncalibration_targets = '3'
@@ -25,13 +28,16 @@ class titta_init(item):
         """The preparation phase of the plug-in goes here."""
         # Call the parent constructor.
         item.prepare(self)
-        
-        self.experiment.titta_bimonocular_calibration = self.var.bimonocular_calibration
+        self._init_var()
         
         try:
             from titta import Titta
         except:
             print('Could not import titta')
+        
+        if self.experiment.canvas_backend != 'psycho':
+            raise osexception(
+                    u'Titta only supports PsychoPy as backend')
         
         self.file_name = 'subject-' + str(self.experiment.subject_nr) + '_TOBII_output.hd5'
         
@@ -48,15 +54,28 @@ class titta_init(item):
         self.settings.DEBUG = False
         
         # %% Connect to eye tracker and calibrate
+        self._show_message('Initialising Eye Tracker')
         self.experiment.tracker = Titta.Connect(self.settings)
         if self.var.dummy_mode == 'yes':
-             print('Dummy mode activated')
+             self._show_message('Dummy mode activated')
              self.experiment.tracker.set_dummy_mode()
         self.experiment.tracker.init()
 
     def run(self):
         """The run phase of the plug-in goes here."""
         pass
+
+    def _init_var(self):
+        self.dummy_mode = self.var.dummy_mode
+        self.verbose = self.var.verbose
+        self.experiment.titta_dummy_mode = self.var.dummy_mode
+        self.experiment.titta_verbose = self.var.verbose
+        self.experiment.titta_bimonocular_calibration = self.var.bimonocular_calibration
+
+    def _show_message(self, message):
+        debug.msg(message)
+        if self.verbose == u'yes':
+            print(message)
 
 
 class qttitta_init(titta_init, qtautoplugin):

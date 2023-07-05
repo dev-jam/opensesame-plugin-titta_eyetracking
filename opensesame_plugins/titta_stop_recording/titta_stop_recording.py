@@ -7,12 +7,14 @@ domain.
 from libopensesame.py3compat import *
 from libopensesame.item import item
 from libqtopensesame.items.qtautoplugin import qtautoplugin
+from libopensesame.exceptions import osexception
+from libopensesame import debug
 
 
 class titta_stop_recording(item):
 
     # Provide an informative description for your plug-in.
-    description = 'An example new-style plug-in'
+    description = 'Titta item to stop recording'
 
     def reset(self):
         """Resets plug-in to initial values."""
@@ -22,6 +24,7 @@ class titta_stop_recording(item):
         """The preparation phase of the plug-in goes here."""
         # Call the parent constructor.
         item.prepare(self)
+        self._check_init()
 
     def run(self):
         """The run phase of the plug-in goes here."""
@@ -34,6 +37,20 @@ class titta_stop_recording(item):
         
         # Save data
         self.experiment.tracker.save_data()
+
+    def _check_init(self):
+        if hasattr(self.experiment, "titta_dummy_mode"):
+            self.dummy_mode = self.experiment.titta_dummy_mode
+            self.verbose = self.experiment.titta_verbose
+        else:
+            raise osexception(
+                    u'You should have one instance of `titta_init` at the start of your experiment')
+
+    def _show_message(self, message):
+
+        debug.msg(message)
+        if self.verbose == u'yes':
+            print(message)
 
 
 class qttitta_stop_recording(titta_stop_recording, qtautoplugin):
