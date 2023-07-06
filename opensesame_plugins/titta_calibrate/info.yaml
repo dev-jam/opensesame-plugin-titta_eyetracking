@@ -1,5 +1,5 @@
 description: Titta Eye Tracking Calibrate
-version: 0.3.0
+version: 0.4.0
 author: "Bob Rosbag"
 url: "http://osdoc.cogsci.nl/"
 category: "Titta Eye Tracking"
@@ -10,4 +10,4 @@ controls:
     label: "Calibrate item"
 -
     type: "text"
-    label: "Version 0.3.0"
+    label: "Version 0.4.0"

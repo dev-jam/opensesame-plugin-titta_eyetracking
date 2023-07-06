@@ -5,7 +5,7 @@
 Author: Bob Rosbag
 2022
 
-This plug-in is free software: you can redistribute it and/or modify
+This plugin is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -16,7 +16,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this plug-in.  If not, see <http://www.gnu.org/licenses/>.
+along with this plugin.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
@@ -33,7 +33,7 @@ def get_readme():
 
 setup(
     name='opensesame-plugin-titta_eyetracking',
-    version='0.3.0',
+    version='0.4.0',
     description='Titta Eye Tracking plugin for OpenSesame',
     long_description=get_readme(),
     long_description_content_type='text/markdown',
