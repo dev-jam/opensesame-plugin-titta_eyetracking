@@ -53,8 +53,8 @@ controls:
     tooltip: "An example line_edit widget"
 -
     type: "text"
-    label: "\n\n\nTitta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy. \n\n\
-    IMPORTANT: This plugin needs PsychoPy as backend AND the dimensions and distance of the monitor have to be set in the PsychoPy monitor config file (for example ~/. psychopy3/testMonitor.json)
+    label: "\n\nIMPORTANT: This plugin needs PsychoPy as backend AND the dimensions and distance of the monitor have to be set in the PsychoPy monitor config file (for example ~/.psychopy3/testMonitor.json)\n\n\n\
+    Titta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy.\n\n\
     Cite as:\n\nNiehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox for creating PsychToolbox and Psychopy experiments with Tobii eye trackers. Behavior Research Methods. doi: 10.3758/s13428-020-01358-8\n\n\
     Please mention: Bob Rosbag as creator of this plugin\n\n
     For questions, bug reports or to check for updates on Titta, please visit https://github.com/marcus-nystrom/Titta.\n\n\
