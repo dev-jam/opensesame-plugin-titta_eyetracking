@@ -40,7 +40,7 @@ class titta_init(item):
             raise osexception(
                     u'Titta only supports PsychoPy as backend')
 
-        self.file_name = 'subject-' + str(self.experiment.subject_nr) + '_TOBII_output.hd5'
+        self.file_name = 'subject-' + str(self.experiment.subject_nr) + '_TOBII_output'
 
         if self.experiment.experiment_path:
             self.fname = self.experiment.experiment_path + os.sep + self.file_name
