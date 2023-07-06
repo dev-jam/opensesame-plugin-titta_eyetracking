@@ -28,6 +28,7 @@ class titta_start_recording(item):
 
     def run(self):
         """The run phase of the plug-in goes here."""
+        self.set_item_onset()
         self.experiment.tracker.start_recording(gaze=True,
                                 time_sync=True,
                                 eye_image=False,
@@ -52,7 +53,7 @@ class titta_start_recording(item):
 
 class qttitta_start_recording(titta_start_recording, qtautoplugin):
     """This class handles the GUI aspect of the plug-in."""
-    
+
     def __init__(self, name, experiment, script=None):
         titta_start_recording.__init__(self, name, experiment, script)
         qtautoplugin.__init__(self, __file__)

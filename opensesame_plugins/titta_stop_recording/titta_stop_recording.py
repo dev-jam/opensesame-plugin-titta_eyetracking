@@ -28,13 +28,15 @@ class titta_stop_recording(item):
 
     def run(self):
         """The run phase of the plug-in goes here."""
+        # Stop streams (if available). Normally only gaze stream is stopped
+        self.set_item_onset()
         self.experiment.tracker.stop_recording(gaze=True,
                                time_sync=True,
                                eye_image=False,
                                notifications=True,
                                external_signal=True,
                                positioning=True)
-        
+
         # Save data
         self.experiment.tracker.save_data()
 
@@ -55,7 +57,7 @@ class titta_stop_recording(item):
 
 class qttitta_stop_recording(titta_stop_recording, qtautoplugin):
     """This class handles the GUI aspect of the plug-in."""
-    
+
     def __init__(self, name, experiment, script=None):
         titta_stop_recording.__init__(self, name, experiment, script)
         qtautoplugin.__init__(self, __file__)

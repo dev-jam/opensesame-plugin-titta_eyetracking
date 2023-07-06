@@ -30,8 +30,9 @@ class titta_calibrate(item):
         """The run phase of the plug-in goes here."""
         from titta import helpers_tobii
         self.fixation_point = helpers_tobii.MyDot2(self.experiment.window)
-        
+
         self._show_message('Starting calibration')
+        self.set_item_onset()
         #  Calibrate
         if self.experiment.titta_bimonocular_calibration == 'yes':
             self.experiment.tracker.calibrate(self.experiment.window, eye='left', calibration_number='first')
@@ -55,7 +56,7 @@ class titta_calibrate(item):
 
 class qttitta_calibrate(titta_calibrate, qtautoplugin):
     """This class handles the GUI aspect of the plug-in."""
-    
+
     def __init__(self, name, experiment, script=None):
         titta_calibrate.__init__(self, name, experiment, script)
         qtautoplugin.__init__(self, __file__)

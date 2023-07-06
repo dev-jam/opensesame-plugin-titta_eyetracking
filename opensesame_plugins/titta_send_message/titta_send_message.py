@@ -28,7 +28,7 @@ class titta_send_message(item):
 
     def run(self):
         """The run phase of the plug-in goes here."""
-        #self._show_message('Sending message to Eye Tracker: %s' % self.var.message)
+        self.set_item_onset()
         self.experiment.tracker.send_message(self.var.message)
 
     def _check_init(self):
@@ -47,7 +47,7 @@ class titta_send_message(item):
 
 class qttitta_send_message(titta_send_message, qtautoplugin):
     """This class handles the GUI aspect of the plug-in."""
-    
+
     def __init__(self, name, experiment, script=None):
         titta_send_message.__init__(self, name, experiment, script)
         qtautoplugin.__init__(self, __file__)

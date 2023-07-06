@@ -29,37 +29,44 @@ class titta_init(item):
         # Call the parent constructor.
         item.prepare(self)
         self._init_var()
-        
+        self._check_init()
+
         try:
             from titta import Titta
         except:
             print('Could not import titta')
-        
+
         if self.experiment.canvas_backend != 'psycho':
             raise osexception(
                     u'Titta only supports PsychoPy as backend')
-        
+
         self.file_name = 'subject-' + str(self.experiment.subject_nr) + '_TOBII_output.hd5'
-        
+
         if self.experiment.experiment_path:
             self.fname = self.experiment.experiment_path + os.sep + self.file_name
         else:
             self.fname = self.file_name
-        
+
         print('Data will be stored in: %s' % self.fname)
-        
+
         self.settings = Titta.get_defaults(self.var.tracker)
         self.settings.FILENAME = self.fname
         self.settings.N_CAL_TARGETS = self.var.ncalibration_targets
         self.settings.DEBUG = False
-        
+
         # %% Connect to eye tracker and calibrate
         self._show_message('Initialising Eye Tracker')
+        self.set_item_onset()
         self.experiment.tracker = Titta.Connect(self.settings)
         if self.var.dummy_mode == 'yes':
              self._show_message('Dummy mode activated')
              self.experiment.tracker.set_dummy_mode()
         self.experiment.tracker.init()
+
+    def _check_init(self):
+        if hasattr(self.experiment, 'tracker'):
+            raise osexception(
+                'You should have only one instance of `titta_init` in your experiment')
 
     def run(self):
         """The run phase of the plug-in goes here."""
@@ -80,7 +87,7 @@ class titta_init(item):
 
 class qttitta_init(titta_init, qtautoplugin):
     """This class handles the GUI aspect of the plug-in."""
-    
+
     def __init__(self, name, experiment, script=None):
         titta_init.__init__(self, name, experiment, script)
         qtautoplugin.__init__(self, __file__)
