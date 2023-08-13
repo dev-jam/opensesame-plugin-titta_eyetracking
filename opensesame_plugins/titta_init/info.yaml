@@ -1,5 +1,5 @@
 description: Titta Eye Tracking Init.
-version: 0.4.0
+version: 0.5.0
 author: "Bob Rosbag"
 url: "http://osdoc.cogsci.nl/"
 category: "Titta Eye Tracking"
@@ -61,4 +61,4 @@ controls:
     To minimize the risk of missing samples, the current repository uses TittaPy (pip install TittaPy), a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker."
 -
     type: "text"
-    label: "Version 0.4.0"
+    label: "Version 0.5.0"
