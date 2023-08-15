@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "opensesame-plugin-titta-eyetracking"
+version = "1.0.0"
+description = "Titta Eye Tracking plugin for OpenSesame"
+authors = ["Bob Rosbag <debian@bobrosbag.nl>"]
+readme = "README.md"
+packages = [
+    {include = "opensesame_plugins"},
+]
+license = "LICENSE.md"
+homepage = "https://github.com/dev-jam/opensesame-plugin-titta_eyetracking"
+repository = "https://github.com/dev-jam/opensesame-plugin-titta_eyetracking"
+
+[tool.poetry.dependencies]
+python = ">= 3.7"
+opensesame-core = ">= 4.0.0a0"
+titta = ">= 1.9.0"
+tittapy = ">= 1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

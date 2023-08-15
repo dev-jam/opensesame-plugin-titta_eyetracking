@@ -17,9 +17,6 @@ For questions, bug reports or to check for updates, please visit https://github.
 To minimize the risk of missing samples, the current repository uses TittaPy (pip install TittaPy), a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker.
 
 
-IMPORTANT: This plugin needs PsychoPy as backend AND the dimensions and distance of the monitor have to be set in the PsychoPy monitor config file (for example ~/.psychopy3/testMonitor.json)
-
-
 ## License
 
 The Titta Eye Tracking plugin is distributed under the terms of the Creative Commons Attribution 4.0 International Public License
