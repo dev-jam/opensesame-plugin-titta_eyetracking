@@ -18,7 +18,7 @@ class TittaInit(Item):
         self.var.verbose = 'no'
         self.var.tracker = 'Tobii Pro Spectrum'
         self.var.bimonocular_calibration = 'no'
-        self.var.ncalibration_targets = '3'
+        self.var.ncalibration_targets = '5'
 
     def prepare(self):
         super().prepare()
