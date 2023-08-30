@@ -14,7 +14,7 @@ repository = "https://github.com/dev-jam/opensesame-plugin-titta_eyetracking"
 [tool.poetry.dependencies]
 python = ">= 3.7"
 titta = ">= 1.9.0"
-tittapy = ">= 1.0.1"
+tittapy = ">= 1.0.0"
 
 [build-system]
 requires = ["poetry-core"]
