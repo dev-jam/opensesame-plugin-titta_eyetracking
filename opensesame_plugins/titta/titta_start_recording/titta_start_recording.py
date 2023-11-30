@@ -15,6 +15,7 @@ class TittaStartRecording(Item):
     def prepare(self):
         super().prepare()
         self._check_init()
+        self._check_stop()
 
     def run(self):
         self.set_item_onset()
@@ -30,7 +31,12 @@ class TittaStartRecording(Item):
             self.dummy_mode = self.experiment.titta_dummy_mode
             self.verbose = self.experiment.titta_verbose
         else:
-            raise OSException('You should have one instance of `titta_init` at the start of your experiment')
+            raise OSException('You should have one instance of `Titta Init` at the start of your experiment')
+
+    def _check_stop(self):
+        if not hasattr(self.experiment, "titta_stop_recording"):
+            raise OSException(
+                    '`Titta Stop Recording` item is missing')
 
     def _show_message(self, message):
         oslogger.debug(message)
