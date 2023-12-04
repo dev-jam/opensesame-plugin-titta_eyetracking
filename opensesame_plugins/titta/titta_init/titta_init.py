@@ -56,6 +56,7 @@ class TittaInit(Item):
     def _init_var(self):
         self.dummy_mode = self.var.dummy_mode
         self.verbose = self.var.verbose
+        self.experiment.titta_recording = None
         self.experiment.titta_dummy_mode = self.var.dummy_mode
         self.experiment.titta_verbose = self.var.verbose
         self.experiment.titta_bimonocular_calibration = self.var.bimonocular_calibration

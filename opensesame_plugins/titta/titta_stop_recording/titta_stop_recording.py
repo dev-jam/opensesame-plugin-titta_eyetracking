@@ -15,9 +15,10 @@ class TittaStopRecording(Item):
     def prepare(self):
         super().prepare()
         self._check_init()
-        self._check_start()
+        self.experiment.titta_stop_recording = True
 
     def run(self):
+        self._check_start()
         self.set_item_onset()
         self.experiment.tracker.stop_recording(gaze=True,
                                                time_sync=True,
@@ -26,6 +27,7 @@ class TittaStopRecording(Item):
                                                external_signal=True,
                                                positioning=True)
         self.experiment.tracker.save_data()
+        self.experiment.titta_recording = False
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
@@ -38,6 +40,10 @@ class TittaStopRecording(Item):
         if not hasattr(self.experiment, "titta_start_recording"):
             raise OSException(
                     '`Titta Start Recording` item is missing')
+        else:
+            if not self.experiment.titta_recording:
+                raise OSException(
+                        'Titta not recording, you first have to start recording before stopping')
 
     def _show_message(self, message):
         oslogger.debug(message)
