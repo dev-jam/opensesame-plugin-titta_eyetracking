@@ -10,23 +10,16 @@ from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
 
 
-class TittaStopRecording(Item):
+class TittaSaveData(Item):
 
     def prepare(self):
         super().prepare()
         self._check_init()
-        self.experiment.titta_stop_recording = True
 
     def run(self):
-        self._check_start()
+        self._check_stop()
         self.set_item_onset()
-        self.experiment.tracker.stop_recording(gaze=True,
-                                               time_sync=True,
-                                               eye_image=False,
-                                               notifications=True,
-                                               external_signal=True,
-                                               positioning=True)
-        self.experiment.titta_recording = False
+        self.experiment.tracker.save_data()
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
@@ -35,14 +28,13 @@ class TittaStopRecording(Item):
         else:
             raise OSException('You should have one instance of `Titta Init` at the start of your experiment')
 
-    def _check_start(self):
-        if not hasattr(self.experiment, "titta_start_recording"):
+    def _check_stop(self):
+        if not hasattr(self.experiment, "titta_stop_recording"):
             raise OSException(
-                    '`Titta Start Recording` item is missing')
-        else:
-            if not self.experiment.titta_recording:
+                    '`Titta Stop Recording` item is missing')
+        elif self.experiment.titta_recording:
                 raise OSException(
-                        'Titta not recording, you first have to start recording before stopping')
+                        'Titta still recording, you first have to stop recording before saving data')
 
     def _show_message(self, message):
         oslogger.debug(message)
@@ -50,9 +42,9 @@ class TittaStopRecording(Item):
             print(message)
 
 
-class QtTittaStopRecording(TittaStopRecording, QtAutoPlugin):
+class QtTittaSaveData(TittaSaveData, QtAutoPlugin):
 
     def __init__(self, name, experiment, script=None):
-        TittaStopRecording.__init__(self, name, experiment, script)
+        TittaSaveData.__init__(self, name, experiment, script)
         QtAutoPlugin.__init__(self, __file__)
 
