@@ -13,20 +13,24 @@ import pandas as pd
 
 class TittaSaveData(Item):
 
+    def reset(self):
+        self.var.tsv_export = 'no'
+
     def prepare(self):
         super().prepare()
+        self._init_var()
         self._check_init()
 
     def run(self):
         self._check_stop()
         self.set_item_onset()
         self.experiment.tracker.save_data()
-
-        # save data as tsv file
-        df_gaze = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'gaze')
-        df_msg = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'msg')
-        df_gaze.to_csv(self.experiment.titta_file_name + '_gaze.tsv', sep='\t')
-        df_msg.to_csv(self.experiment.titta_file_name + '_msg.tsv', sep='\t')
+        
+        if self.tsv_export == 'yes':
+            df_gaze = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'gaze')
+            df_msg = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'msg')
+            df_gaze.to_csv(self.experiment.titta_file_name + '_gaze.tsv', sep='\t')
+            df_msg.to_csv(self.experiment.titta_file_name + '_msg.tsv', sep='\t')
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
@@ -42,6 +46,9 @@ class TittaSaveData(Item):
         elif self.experiment.titta_recording:
                 raise OSException(
                         'Titta still recording, you first have to stop recording before saving data')
+
+    def _init_var(self):
+        self.tsv_export = self.var.tsv_export
 
     def _show_message(self, message):
         oslogger.debug(message)
