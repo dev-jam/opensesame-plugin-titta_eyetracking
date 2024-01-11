@@ -33,6 +33,7 @@ class TittaInit(Item):
         if self.var.canvas_backend != 'psycho':
             raise OSException('Titta only supports PsychoPy as backend')
         self.file_name = 'subject-' + str(self.var.subject_nr)
+        self.experiment.titta_file_name = os.path.normpath(os.path.join(os.path.dirname(self.var.logfile), self.file_name))
         self._show_message('Data will be stored in: %s' % self.file_name)
 
         self.settings = Titta.get_defaults(self.var.tracker)

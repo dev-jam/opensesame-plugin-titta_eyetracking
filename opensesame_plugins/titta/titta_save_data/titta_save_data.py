@@ -8,6 +8,7 @@ from libopensesame.item import Item
 from libqtopensesame.items.qtautoplugin import QtAutoPlugin
 from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
+import pandas as pd
 
 
 class TittaSaveData(Item):
@@ -20,6 +21,12 @@ class TittaSaveData(Item):
         self._check_stop()
         self.set_item_onset()
         self.experiment.tracker.save_data()
+
+        # save data as tsv file
+        df_gaze = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'gaze')
+        df_msg = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'msg')
+        df_gaze.to_csv(self.experiment.titta_file_name + '_gaze.tsv', sep='\t')
+        df_msg.to_csv(self.experiment.titta_file_name + '_msg.tsv', sep='\t')
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
