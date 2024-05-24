@@ -90,7 +90,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.2...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.2...2.2.0
 [2.1.2]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.0.0...2.1.1
 [2.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/1.1.0...2.0.0
