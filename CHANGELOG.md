@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [2.2.0] - 2024-05-24
+
+Warning:
+
+The structure of the interface has been updated; 'stop recording' and 'save data' are now two distinct items.
+
+﻿Please note that experiments created using version 1.x of the plugin will not save the eye tracking data if run with version 2.x, so it is recommended to ensure compatibility before proceeding.
+
+These modifications were necessary to resolve issues with per-trial recording.
+
+- save external signal and calibration history as tsv data
+    
 ## [2.1.2] - 2024-01-11
 
 Warning:
@@ -33,7 +45,6 @@ These modifications were necessary to resolve issues with per-trial recording.
 
 - fixed icon 'save data' item
 - added data export as tsv files
-
     
 ## [2.0.0] - 2024-01-09
 
