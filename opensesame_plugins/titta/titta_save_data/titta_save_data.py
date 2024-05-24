@@ -26,11 +26,20 @@ class TittaSaveData(Item):
         self.set_item_onset()
         self.experiment.tracker.save_data()
         
-        if self.tsv_export == 'yes':
+        if self.tsv_export == 'yes' and self.experiment.titta_dummy_mode == 'no':
             df_gaze = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'gaze')
             df_msg = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'msg')
+            df_external_signal = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'external_signal')
+            df_calibration_history = pd.read_hdf(self.experiment.titta_file_name + '.h5', 'calibration_history')
+            df_merged = pd.concat([df_gaze, df_msg, df_external_signal])
+            df_merged.sort_values("system_time_stamp", axis = 0, ascending = True,
+                                 inplace = True, na_position ='last')
+
             df_gaze.to_csv(self.experiment.titta_file_name + '_gaze.tsv', sep='\t')
             df_msg.to_csv(self.experiment.titta_file_name + '_msg.tsv', sep='\t')
+            df_external_signal.to_csv(self.experiment.titta_file_name + '_external_signal.tsv', sep='\t')
+            df_calibration_history.to_csv(self.experiment.titta_file_name + '_calibration_history.tsv', sep='\t')
+            df_merged.to_csv(self.experiment.titta_file_name + '_data_merged.tsv', sep='\t')
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
