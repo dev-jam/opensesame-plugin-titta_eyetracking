@@ -22,7 +22,7 @@ class TittaStartRecording(Item):
         self.set_item_onset()
         self.experiment.tracker.start_recording(gaze=True,
                                                 time_sync=True,
-                                                eye_image=False,
+                                                eye_image=self.experiment.titta_eye_image,
                                                 notifications=True,
                                                 external_signal=True,
                                                 positioning=True)

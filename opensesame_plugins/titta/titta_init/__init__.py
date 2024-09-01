@@ -41,6 +41,12 @@ controls = [
         "tooltip": "Select an Eye Tracker"
     }, {
         "type": "checkbox",
+        "var": "eye_image",
+        "label": "Record Eye Images",
+        "name": "checkbox_eyeimage",
+        "tooltip": "Record Eye Images"
+    },  {
+        "type": "checkbox",
         "var": "bimonocular_calibration",
         "label": "Bimonocular Calibration",
         "name": "checkbox_bimonocular_calibration",
@@ -51,7 +57,37 @@ controls = [
         "label": "Number of calibration targets",
         "name": "line_edit_ncal",
         "tooltip": "Number of calibration targets"
-    }, {
+    },  {
+        "type": "checkbox",
+        "var": "operator",
+        "label": "Operator Screen",
+        "name": "checkbox_operator",
+        "tooltip": "Enable operator screen"
+    },  {
+        "type": "line_edit",
+        "var": "screen_name",
+        "label": "Screen name",
+        "name": "line_edit_screen_name",
+        "tooltip": "String value"
+    },  {
+        "type": "line_edit",
+        "var": "screen_nr",
+        "label": "Screen number",
+        "name": "line_edit_screen_nr",
+        "tooltip": "Integer value"
+    },  {
+        "type": "line_edit",
+        "var": "xres",
+        "label": "Resolution X (pxs)",
+        "name": "line_edit_xres",
+        "tooltip": "Value in pxs"
+    },  {
+        "type": "line_edit",
+        "var": "yres",
+        "label": "Resolution Y (pxs)",
+        "name": "line_edit_yres",
+        "tooltip": "Value in pxs"
+    },  {
         "type": "text",
         "label": "\n\nTitta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy.\n\n\
 Cite as:\n\nNiehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox for creating PsychToolbox and Psychopy experiments with Tobii eye trackers. Behavior Research Methods. doi: 10.3758/s13428-020-01358-8\n\n\
@@ -63,6 +99,6 @@ To minimize the risk of missing samples, the current repository uses TittaPy (pi
         "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
-        "label": "<small>Titta Eye Tracking version 2.2.0</small>"
+        "label": "<small>Titta Eye Tracking version 2.3.0</small>"
     }
 ]
