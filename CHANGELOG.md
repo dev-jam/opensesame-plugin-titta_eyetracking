@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [2.3.0] - 2024-09-01
+
+Warning:
+
+The structure of the interface has been updated; 'stop recording' and 'save data' are now two distinct items.
+
+﻿Please note that experiments created using version 1.x of the plugin will not save the eye tracking data if run with version 2.x, so it is recommended to ensure compatibility before proceeding.
+
+These modifications were necessary to resolve issues with per-trial recording.
+
+- added dual screen / operator screen option
+- save eye images
+    
 ## [2.2.0] - 2024-05-24
 
 Warning:
@@ -90,7 +103,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.2...2.2.0
 [2.1.2]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.0.0...2.1.1
