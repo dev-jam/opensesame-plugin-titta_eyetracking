@@ -22,21 +22,12 @@ class TittaCalibrate(Item):
         self._show_message('Starting calibration')
         self.set_item_onset()
         if self.experiment.titta_bimonocular_calibration == 'yes':
-            if self.experiment.titta_dual_screen_setup == 'yes':
-                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.win_op, eye='left',
+            self.experiment.tracker.calibrate(self.experiment.window, eye='left',
                                               calibration_number='first')
-                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.win_op, eye='right',
+            self.experiment.tracker.calibrate(self.experiment.window, eye='right',
                                               calibration_number='second')
-            else:
-                self.experiment.tracker.calibrate(self.experiment.window, eye='left',
-                                              calibration_number='first')
-                self.experiment.tracker.calibrate(self.experiment.window, eye='right',
-                                              calibration_number='second')  
         elif self.experiment.titta_bimonocular_calibration == 'no':
-            if self.experiment.titta_dual_screen_setup == 'yes':
-                self.experiment.tracker.calibrate(self.experiment.window, self.experiment.win_op)
-            else:
-                self.experiment.tracker.calibrate(self.experiment.window)
+            self.experiment.tracker.calibrate(self.experiment.window)
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
