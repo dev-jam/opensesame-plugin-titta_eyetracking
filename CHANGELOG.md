@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [2.4.0] - 2024-09-02
+
+- reverted dual screen / operator screen option, needs more testing
+    
 ## [2.3.0] - 2024-09-01
 
 Warning:
@@ -103,7 +107,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.3.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.2...2.2.0
 [2.1.2]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.1.1...2.1.2
