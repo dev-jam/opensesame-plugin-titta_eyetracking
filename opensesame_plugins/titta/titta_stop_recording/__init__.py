@@ -9,6 +9,6 @@ controls = [
         "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
-        "label": "<small>Titta Eye Tracking version 2.4.0</small>"
+        "label": "<small>Titta Eye Tracking version 2.5.0</small>"
     }
 ]
