@@ -57,7 +57,37 @@ controls = [
         "label": "Number of calibration targets",
         "name": "line_edit_ncal",
         "tooltip": "Number of calibration targets"
-    }, {
+    },  {
+        "type": "checkbox",
+        "var": "operator",
+        "label": "Operator Screen",
+        "name": "checkbox_operator",
+        "tooltip": "Enable operator screen"
+    },  {
+        "type": "line_edit",
+        "var": "screen_name",
+        "label": "Screen name",
+        "name": "line_edit_screen_name",
+        "tooltip": "String value"
+    },  {
+        "type": "line_edit",
+        "var": "screen_nr",
+        "label": "Screen number",
+        "name": "line_edit_screen_nr",
+        "tooltip": "Integer value"
+    },  {
+        "type": "line_edit",
+        "var": "xres",
+        "label": "Resolution X (pxs)",
+        "name": "line_edit_xres",
+        "tooltip": "Value in pxs"
+    },  {
+        "type": "line_edit",
+        "var": "yres",
+        "label": "Resolution Y (pxs)",
+        "name": "line_edit_yres",
+        "tooltip": "Value in pxs"
+    },  {
         "type": "text",
         "label": "\n\nTitta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy.\n\n\
 Cite as:\n\nNiehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox for creating PsychToolbox and Psychopy experiments with Tobii eye trackers. Behavior Research Methods. doi: 10.3758/s13428-020-01358-8\n\n\

@@ -20,6 +20,11 @@ class TittaInit(Item):
         self.var.bimonocular_calibration = 'no'
         self.var.ncalibration_targets = '5'
         self.var.eyeimage = 'no'
+        self.var.operator = 'no'
+        self.var.screen_name = 'default'
+        self.var.screen_nr = 1
+        self.var.xres = '1920'
+        self.var.yres = '1080'
 
     def prepare(self):
         super().prepare()
@@ -42,6 +47,24 @@ class TittaInit(Item):
         self.settings.DATA_STORAGE_PATH = os.path.dirname(self.var.logfile)
         self.settings.N_CAL_TARGETS = self.var.ncalibration_targets
         self.settings.DEBUG = False
+
+        if self.var.operator == 'yes':
+            # Monitor/geometry operator screen
+            MY_MONITOR_OP                  = self.var.screen_name # needs to exists in PsychoPy monitor center
+            FULLSCREEN_OP                  = False
+            SCREEN_RES_OP                  = [self.var.xres, self.var.yres]
+            SCREEN_WIDTH_OP                = 52.7 # cm
+            VIEWING_DIST_OP                = 63 #  # distance from eye to center of screen (cm)
+
+            from psychopy import visual, monitors
+
+            mon_op = monitors.Monitor(MY_MONITOR_OP)  # Defined in defaults file
+            mon_op.setWidth(SCREEN_WIDTH_OP)          # Width of screen (cm)
+            mon_op.setDistance(VIEWING_DIST_OP)       # Distance eye / monitor (cm)
+            mon_op.setSizePix(SCREEN_RES_OP)
+
+            self.experiment.win_op = visual.Window(monitor = mon_op, fullscr = FULLSCREEN_OP, screen=self.var.screen_nr, size=SCREEN_RES_OP, units = 'norm')
+            self.experiment.cleanup_functions.append(self.experiment.win_op.close)
 
         self._show_message('Initialising Eye Tracker')
         self.set_item_onset()
@@ -66,6 +89,11 @@ class TittaInit(Item):
             self.experiment.titta_eye_image = True
         else:
             self.experiment.titta_eye_image = False
+        self.experiment.titta_operator = self.var.operator
+        self.experiment.titta_operator_xres = self.var.xres
+        self.experiment.titta_operator_yres = self.var.yres
+        self.experiment.titta_operator_screen_nr = self.var.screen_nr
+        self.experiment.titta_operator_screen_name = self.var.screen_name
 
     def _show_message(self, message):
         oslogger.debug(message)
@@ -78,3 +106,18 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
     def __init__(self, name, experiment, script=None):
         TittaInit.__init__(self, name, experiment, script)
         QtAutoPlugin.__init__(self, __file__)
+
+    def init_edit_widget(self):
+        super().init_edit_widget()
+        self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())
+        self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
+        self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
+        self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
+        self.checkbox_operator.stateChanged.connect(
+            self.line_edit_xres.setEnabled)
+        self.checkbox_operator.stateChanged.connect(
+            self.line_edit_yres.setEnabled)
+        self.checkbox_operator.stateChanged.connect(
+            self.line_edit_screen_nr.setEnabled)
+        self.checkbox_operator.stateChanged.connect(
+            self.line_edit_screen_name.setEnabled)
