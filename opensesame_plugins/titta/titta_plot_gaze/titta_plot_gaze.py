@@ -31,15 +31,11 @@ class TittaPlotGaze(Item):
                 self._allowed_responses = None
             self._show_message("Response key(s) set to %s" % self._allowed_responses)
 
-    def run(self):
-        
-        from psychopy import visual
-
         if isinstance(self.var.timeout, int):
             if self.var.timeout > 0:
                 self.timeout = self.var.timeout
             else:
-                raise OSException('Timeout can not be negative')    
+                raise OSException('Timeout can not be negative')
         elif isinstance(self.var.timeout, str):
             if self.var.timeout == 'infinite':
                 self.timeout = self.var.timeout
@@ -48,14 +44,17 @@ class TittaPlotGaze(Item):
         else:
             raise OSException('Timeout can only be "infinite" or a positive integer')
 
+    def run(self):
+
+        from psychopy import visual
+
         self.kb = Keyboard(self.experiment, timeout=1)
         self.kb.keylist = self._allowed_responses
         self.kb.flush()
-        key = None
-        
+
         rel = self.experiment.var.width/self.experiment.var.height
         rad = 0.02
-        
+
         image_stim = self.experiment.window.getMovieFrame()
         if self.experiment.titta_operator == 'no':
             image = visual.ImageStim(self.experiment.window, image=image_stim, units='norm', size=(2, 2))
@@ -63,47 +62,48 @@ class TittaPlotGaze(Item):
         elif self.experiment.titta_operator == 'yes':
             image = visual.ImageStim(self.experiment.window_op, image=image_stim, units='norm', size=(2, 2))
             dot = visual.Circle(self.experiment.window_op, radius=(rad, rel*rad), units='norm', lineColor='red', fillColor='red', opacity=0.5)
-        
-        counter = 1
-        
+
+        #counter = 1
+        key = None
+        time = None
         self.start_time = self.set_item_onset()
-        
+
         while not key:
-            
+
             if self.timeout != 'infinite':
                 if self.clock.time() - self.start_time >= self.var.timeout:
                     break
-            
+
             image.draw()
-            
+
             if self.experiment.titta_dummy_mode == 'no':
-                sample = self.experiment.tracker.buffer.peek_N('gaze', 1) 
-        
+                sample = self.experiment.tracker.buffer.peek_N('gaze', 1)
+
                 L_X = sample['left_gaze_point_on_display_area_x'][0] * 2 - 1
                 L_Y = 1 - sample['left_gaze_point_on_display_area_y'][0] * 2
                 R_X = sample['right_gaze_point_on_display_area_x'][0] * 2 - 1
                 R_Y = 1 - sample['right_gaze_point_on_display_area_y'][0] * 2
-            
+
                 dot.lineColor = 'red'
                 dot.fillColor = 'red'
                 dot.pos = (L_X, L_Y)
                 dot.draw()
-                
+
                 dot.lineColor = 'blue'
                 dot.fillColor = 'blue'
                 dot.pos = (R_X, R_Y)
                 dot.draw()
-            else:
-                dot.lineColor = 'red'
-                dot.fillColor = 'red'
-                dot.pos = ((-5+counter)/1000, (-5+counter)/1000)
-                dot.draw()
-                
-                dot.lineColor = 'blue'
-                dot.fillColor = 'blue'
-                dot.pos = ((5+counter)/1000, (5+counter)/1000)
-                dot.draw()
-                counter += 1
+            # else:
+            #     dot.lineColor = 'red'
+            #     dot.fillColor = 'red'
+            #     dot.pos = ((-5+counter)/1000, (-5+counter)/1000)
+            #     dot.draw()
+
+            #     dot.lineColor = 'blue'
+            #     dot.fillColor = 'blue'
+            #     dot.pos = ((5+counter)/1000, (5+counter)/1000)
+            #     dot.draw()
+            #     counter += 1
 
             if self.experiment.titta_operator == 'no':
                 self.experiment.window.flip()
