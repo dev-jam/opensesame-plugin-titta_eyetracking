@@ -58,12 +58,12 @@ class TittaPlotGaze(Item):
         image_stim = self.experiment.window.getMovieFrame()
         if self.experiment.titta_operator == 'no':
             image = visual.ImageStim(self.experiment.window, image=image_stim, units='norm', size=(2, 2))
-            dot = visual.Circle(self.experiment.window, radius=(rad, rel*rad), units='norm', lineColor='red', fillColor='red', opacity=0.5)
+            dot = visual.Circle(self.experiment.window, radius=(rad, rel*rad), units='norm', lineColor='blue', fillColor='blue', opacity=0.5)
         elif self.experiment.titta_operator == 'yes':
             image = visual.ImageStim(self.experiment.window_op, image=image_stim, units='norm', size=(2, 2))
-            dot = visual.Circle(self.experiment.window_op, radius=(rad, rel*rad), units='norm', lineColor='red', fillColor='red', opacity=0.5)
+            dot = visual.Circle(self.experiment.window_op, radius=(rad, rel*rad), units='norm', lineColor='blue', fillColor='blue', opacity=0.5)
 
-        #counter = 1
+        counter = 1
         key = None
         time = None
         self.start_time = self.set_item_onset()
@@ -74,9 +74,9 @@ class TittaPlotGaze(Item):
                 if self.clock.time() - self.start_time >= self.var.timeout:
                     break
 
-            image.draw()
-
             if self.experiment.titta_dummy_mode == 'no':
+                image.draw()
+
                 sample = self.experiment.tracker.buffer.peek_N('gaze', 1)
 
                 L_X = sample['left_gaze_point_on_display_area_x'][0] * 2 - 1
@@ -93,7 +93,12 @@ class TittaPlotGaze(Item):
                 dot.fillColor = 'blue'
                 dot.pos = (R_X, R_Y)
                 dot.draw()
+
+                self._flip_window()
+
             # else:
+            #     image.draw()
+
             #     dot.lineColor = 'red'
             #     dot.fillColor = 'red'
             #     dot.pos = ((-5+counter)/1000, (-5+counter)/1000)
@@ -105,10 +110,7 @@ class TittaPlotGaze(Item):
             #     dot.draw()
             #     counter += 1
 
-            if self.experiment.titta_operator == 'no':
-                self.experiment.window.flip()
-            elif self.experiment.titta_operator == 'yes':
-                self.experiment.window_op.flip()
+            #     self._flip_window()
 
             key, time = self.kb.get_key()
 
@@ -116,6 +118,12 @@ class TittaPlotGaze(Item):
         response_time = round(time - self.start_time, 1)
         self._show_message("Detected press on button: '%s'" % key)
         self._show_message("Response time: %s ms" % response_time)
+
+    def _flip_window(self):
+        if self.experiment.titta_operator == 'no':
+            self.experiment.window.flip()
+        elif self.experiment.titta_operator == 'yes':
+            self.experiment.window_op.flip()
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
