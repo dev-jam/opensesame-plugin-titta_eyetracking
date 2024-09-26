@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [3.0.1] - 2024-09-27
+
+- comment test code
+- reordering of code
+- dummy mode only inhibits gaze plotting
+    
 ## [3.0.0] - 2024-09-26
 
 - added gaze plot item
@@ -116,7 +122,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.1...HEAD
+[3.0.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.5.0...3.0.0
 [2.5.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.3.0...2.4.0
