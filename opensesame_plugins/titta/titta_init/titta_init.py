@@ -63,8 +63,8 @@ class TittaInit(Item):
             mon_op.setDistance(VIEWING_DIST_OP)       # Distance eye / monitor (cm)
             mon_op.setSizePix(SCREEN_RES_OP)
 
-            self.experiment.win_op = visual.Window(monitor = mon_op, fullscr = FULLSCREEN_OP, screen=self.var.screen_nr, size=SCREEN_RES_OP, units = 'norm')
-            self.experiment.cleanup_functions.append(self.experiment.win_op.close)
+            self.experiment.window_op = visual.Window(monitor = mon_op, fullscr = FULLSCREEN_OP, screen=self.var.screen_nr, size=SCREEN_RES_OP, units = 'norm')
+            self.experiment.cleanup_functions.append(self.experiment.window_op.close)
 
         self._show_message('Initialising Eye Tracker')
         self.set_item_onset()

@@ -23,9 +23,9 @@ class TittaCalibrate(Item):
         self.set_item_onset()
         if self.experiment.titta_bimonocular_calibration == 'yes':
             if self.experiment.titta_operator == 'yes':
-                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.win_op, eye='left',
+                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='left',
                                               calibration_number='first')
-                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.win_op, eye='right',
+                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='right',
                                               calibration_number='second')
             else:
                 self.experiment.tracker.calibrate(self.experiment.window, eye='left',
@@ -34,7 +34,7 @@ class TittaCalibrate(Item):
                                               calibration_number='second')
         elif self.experiment.titta_bimonocular_calibration == 'no':
             if self.experiment.titta_operator == 'yes':
-                self.experiment.tracker.calibrate(self.experiment.window, self.experiment.win_op)
+                self.experiment.tracker.calibrate(self.experiment.window, self.experiment.window_op)
             else:
                 self.experiment.tracker.calibrate(self.experiment.window)
 
