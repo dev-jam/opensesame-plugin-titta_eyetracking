@@ -5,6 +5,24 @@ category = "Titta Eye Tracking"
 # Defines the GUI controls
 controls = [
     {
+        "type": "checkbox",
+        "var": "stimulus_display",
+        "label": "Plot gaze on stimulus display",
+        "name": "checkbox_stimulus_display",
+        "tooltip": "Plot gaze on display display"
+    },  {
+        "type": "checkbox",
+        "var": "operator_display",
+        "label": "Plot gaze on operator display (if selected in the init item)",
+        "name": "checkbox_operator_display",
+        "tooltip": "Plot gaze on operator display"
+    },  {
+        "type": "checkbox",
+        "var": "disable_waitblanking_gaze",
+        "label": "Force disabling of waitBlanking for gaze plot on operator screen",
+        "name": "checkbox_disable_waitblanking_gaze",
+        "tooltip": "Force disabling of waitBlanking for gaze plot on operator screen"
+    },  {
         "type": "line_edit",
         "var": "response_key",
         "label": "Response key",
@@ -21,6 +39,6 @@ controls = [
         "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
-        "label": "<small>Titta Eye Tracking version 3.0.1</small>"
+        "label": "<small>Titta Eye Tracking version 3.1.0</small>"
     }
 ]

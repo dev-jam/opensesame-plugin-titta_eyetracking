@@ -25,6 +25,7 @@ class TittaInit(Item):
         self.var.screen_nr = 1
         self.var.xres = '1920'
         self.var.yres = '1080'
+        self.var.waitblanking = 'no'
 
     def prepare(self):
         super().prepare()
@@ -63,7 +64,12 @@ class TittaInit(Item):
             mon_op.setDistance(VIEWING_DIST_OP)       # Distance eye / monitor (cm)
             mon_op.setSizePix(SCREEN_RES_OP)
 
-            self.experiment.window_op = visual.Window(monitor = mon_op, fullscr = FULLSCREEN_OP, screen=self.var.screen_nr, size=SCREEN_RES_OP, units = 'norm')
+            self.experiment.window_op = visual.Window(monitor = mon_op,
+                                                      fullscr = FULLSCREEN_OP,
+                                                      screen=self.var.screen_nr,
+                                                      size=SCREEN_RES_OP,
+                                                      units = 'norm',
+                                                      waitBlanking=self.experiment.titta_operator_waitblanking)
             self.experiment.cleanup_functions.append(self.experiment.window_op.close)
 
         self._show_message('Initialising Eye Tracker')
@@ -94,6 +100,10 @@ class TittaInit(Item):
         self.experiment.titta_operator_yres = self.var.yres
         self.experiment.titta_operator_screen_nr = self.var.screen_nr
         self.experiment.titta_operator_screen_name = self.var.screen_name
+        if self.var.waitblanking == 'no':
+            self.experiment.titta_operator_waitblanking = False
+        else:
+            self.experiment.titta_operator_waitblanking = True
 
     def _show_message(self, message):
         oslogger.debug(message)
@@ -113,6 +123,7 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
         self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
+        self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_xres.setEnabled)
         self.checkbox_operator.stateChanged.connect(
@@ -121,3 +132,5 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.line_edit_screen_nr.setEnabled)
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_screen_name.setEnabled)
+        self.checkbox_operator.stateChanged.connect(
+            self.checkbox_waitblanking.setEnabled)
