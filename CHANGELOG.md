@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [3.1.0] - 2024-09-30
+
+- separate gaze plot option for experiment and operator screen
+- global and local option to disable wait for blanking for operator screen
+- internal debug timers for screen drawing
+- internal debug option for simulating gaze plotting
+    
 ## [3.0.1] - 2024-09-27
 
 - comment test code
@@ -122,7 +129,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.1...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.1.0...HEAD
+[3.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.5.0...3.0.0
 [2.5.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/2.4.0...2.5.0
