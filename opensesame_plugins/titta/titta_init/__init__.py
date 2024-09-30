@@ -90,9 +90,9 @@ controls = [
     },  {
         "type": "checkbox",
         "var": "waitblanking",
-        "label": "Enable waitBlanking operator screen",
+        "label": "Enable waitBlanking on operator screen",
         "name": "checkbox_waitblanking",
-        "tooltip": "Enable waitBlanking operator screen"
+        "tooltip": "Enable waitBlanking on operator screen"
     },  {
         "type": "text",
         "label": "\n\nTitta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy.\n\n\
