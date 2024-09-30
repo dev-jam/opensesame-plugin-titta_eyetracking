@@ -17,7 +17,8 @@ class TittaPlotGaze(Item):
     def reset(self):
         self.var.stimulus_display = 'no'
         self.var.operator_display = 'no'
-        self.var.disable_waitblanking_gaze  = 'yes'
+        self.var.simulate_gaze = 'no'
+        self.var.disable_waitblanking_gaze  = 'no'
         self.var.response_key = ''
         self.var.timeout = 'infinite'
 
@@ -76,7 +77,7 @@ class TittaPlotGaze(Item):
         key = None
         time = None
         self.debug = False
-        self.simulate = False
+
         self.start_time = self.set_item_onset()
 
         while not key:
@@ -195,12 +196,17 @@ class TittaPlotGaze(Item):
             self.operator_display = True
         else:
             self.operator_display = False
-        
+
         if self.var.disable_waitblanking_gaze  == 'no':
             self.disable_waitblanking_gaze = False
         else:
             self.disable_waitblanking_gaze = True
-        
+
+        if self.var.simulate_gaze == 'no':
+            self.simulate = False
+        else:
+            self.simulate = True
+
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
             self.dummy_mode = self.experiment.titta_dummy_mode

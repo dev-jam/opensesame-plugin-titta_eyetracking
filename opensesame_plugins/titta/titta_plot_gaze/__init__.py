@@ -18,6 +18,12 @@ controls = [
         "tooltip": "Plot gaze on operator display"
     },  {
         "type": "checkbox",
+        "var": "simulate_gaze",
+        "label": "Simulate gaze in dummy mode",
+        "name": "checkbox_simulate_gaze",
+        "tooltip": "Simulate gaze in dummy mode"
+    },  {
+        "type": "checkbox",
         "var": "disable_waitblanking_gaze",
         "label": "Force disabling of waitBlanking for gaze plot on operator screen",
         "name": "checkbox_disable_waitblanking_gaze",
