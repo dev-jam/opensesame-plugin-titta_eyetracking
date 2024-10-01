@@ -60,7 +60,7 @@ class TittaPlotGaze(Item):
         rel = self.experiment.var.width/self.experiment.var.height
         rad = 0.02
 
-        image_stim = self.experiment.window.getMovieFrame()
+        image_stim = self.experiment.window._getFrame()
 
         if self.operator_display and self.experiment.titta_operator_waitblanking and self.disable_waitblanking_gaze:
             self.experiment.window_op.waitBlanking = False
