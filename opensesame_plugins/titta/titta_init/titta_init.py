@@ -64,11 +64,11 @@ class TittaInit(Item):
             mon_op.setDistance(VIEWING_DIST_OP)       # Distance eye / monitor (cm)
             mon_op.setSizePix(SCREEN_RES_OP)
 
-            self.experiment.window_op = visual.Window(monitor = mon_op,
-                                                      fullscr = FULLSCREEN_OP,
+            self.experiment.window_op = visual.Window(monitor=mon_op,
+                                                      fullscr=FULLSCREEN_OP,
                                                       screen=self.var.screen_nr,
                                                       size=SCREEN_RES_OP,
-                                                      units = 'norm',
+                                                      units='norm',
                                                       waitBlanking=self.experiment.titta_operator_waitblanking)
             self.experiment.cleanup_functions.append(self.experiment.window_op.close)
 
