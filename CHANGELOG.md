@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [3.4.0] - 2024-10-05
+
+- new icons
+- checkboxes are not disabled on initialisation so revert
+    
 ## [3.3.0] - 2024-10-01
 
 - getMovieFrame() was replaced with \_getFrame()
-
+    
 ## [3.2.0] - 2024-09-30
 
 - add simulate gaze
@@ -137,7 +142,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.3.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.4.0...HEAD
+[3.4.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.0.1...3.1.0
