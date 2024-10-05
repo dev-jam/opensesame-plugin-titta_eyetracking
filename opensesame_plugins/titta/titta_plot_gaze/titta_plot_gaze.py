@@ -232,8 +232,8 @@ class QtTittaPlotGaze(TittaPlotGaze, QtAutoPlugin):
         TittaPlotGaze.__init__(self, name, experiment, script)
         QtAutoPlugin.__init__(self, __file__)
 
-    def init_edit_widget(self):
-        super().init_edit_widget()
-        self.checkbox_disable_waitblanking_gaze.setEnabled(self.checkbox_operator_display.isChecked())
-        self.checkbox_operator_display.stateChanged.connect(
-            self.checkbox_disable_waitblanking_gaze.setEnabled)
+    # def init_edit_widget(self):
+    #     super().init_edit_widget()
+    #     self.checkbox_disable_waitblanking_gaze.setEnabled(self.checkbox_operator_display.isChecked())
+    #     self.checkbox_operator_display.stateChanged.connect(
+    #         self.checkbox_disable_waitblanking_gaze.setEnabled)
