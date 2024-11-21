@@ -13,7 +13,7 @@ repository = "https://github.com/dev-jam/opensesame-plugin-titta_eyetracking"
 
 [tool.poetry.dependencies]
 python = ">= 3.8"
-titta = ">= 2.0.1"
+titta = ">= 2.1.0"
 tittapy = ">= 1.0.0"
 pandas = "*"
 
