@@ -19,7 +19,6 @@ class TittaInit(Item):
         self.var.tracker = 'Tobii Pro Spectrum'
         self.var.bimonocular_calibration = 'no'
         self.var.ncalibration_targets = '5'
-        self.var.eyeimage = 'no'
         self.var.operator = 'no'
         self.var.screen_name = 'default'
         self.var.screen_nr = 1
@@ -91,10 +90,6 @@ class TittaInit(Item):
         self.experiment.titta_dummy_mode = self.var.dummy_mode
         self.experiment.titta_verbose = self.var.verbose
         self.experiment.titta_bimonocular_calibration = self.var.bimonocular_calibration
-        if self.var.eye_image == 'yes':
-            self.experiment.titta_eye_image = True
-        else:
-            self.experiment.titta_eye_image = False
         self.experiment.titta_operator = self.var.operator
         self.experiment.titta_operator_xres = self.var.xres
         self.experiment.titta_operator_yres = self.var.yres

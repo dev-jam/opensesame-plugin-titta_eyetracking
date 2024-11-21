@@ -41,12 +41,6 @@ controls = [
         "tooltip": "Select an Eye Tracker"
     }, {
         "type": "checkbox",
-        "var": "eye_image",
-        "label": "Record Eye Images",
-        "name": "checkbox_eyeimage",
-        "tooltip": "Record Eye Images"
-    },  {
-        "type": "checkbox",
         "var": "bimonocular_calibration",
         "label": "Bimonocular Calibration",
         "name": "checkbox_bimonocular_calibration",
