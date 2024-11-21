@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
     
+## [4.0.0] - 2024-11-21
+
+- implemented blocking in start_recording
+- fine-grained options in start/stop recording
+    
 ## [3.4.0] - 2024-10-05
 
 - new icons
@@ -142,7 +147,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.4.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.4.0...4.0.0
 [3.4.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.1.0...3.2.0
