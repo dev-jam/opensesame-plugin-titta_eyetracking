@@ -23,6 +23,7 @@ class TittaStopRecording(Item):
     def prepare(self):
         super().prepare()
         self._check_init()
+        self._init_var()
         self.experiment.titta_stop_recording = True
 
     def run(self):
