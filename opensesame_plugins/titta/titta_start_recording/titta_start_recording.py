@@ -40,34 +40,13 @@ class TittaStartRecording(Item):
         self.experiment.titta_recording = True
 
     def _init_var(self):
-        if self.var.blocking_mode == 'yes':
-            self.blocking_mode = True
-        else:
-            self.blocking_mode = False
-        if self.var.start_gaze == 'yes':
-            self.start_gaze = True
-        else:
-            self.start_gaze = False
-        if self.var.start_time_sync == 'yes':
-            self.start_time_sync = True
-        else:
-            self.start_time_sync = False
-        if self.var.start_eye_image == 'yes':
-            self.start_eye_image = True
-        else:
-            self.start_eye_image = False
-        if self.var.start_notifications == 'yes':
-            self.start_notifications = True
-        else:
-            self.start_notifications = False
-        if self.var.start_external_signal == 'yes':
-            self.start_external_signal = True
-        else:
-            self.start_external_signal = False
-        if self.var.start_positioning == 'yes':
-            self.start_positioning = True
-        else:
-            self.start_positioning = False
+        self.blocking_mode = self._make_boolean(self.var.blocking_mode)
+        self.start_gaze = self._make_boolean(self.var.start_gaze)
+        self.start_time_sync = self._make_boolean(self.var.start_time_sync)
+        self.start_eye_image = self._make_boolean(self.var.start_eye_image)
+        self.start_notifications = self._make_boolean(self.var.start_notifications)
+        self.start_external_signal = self._make_boolean(self.var.start_external_signal)
+        self.start_positioning = self._make_boolean(self.var.start_positioning)
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
@@ -84,6 +63,15 @@ class TittaStartRecording(Item):
             if self.experiment.titta_recording:
                 raise OSException(
                         'Titta still recording, you first have to stop recording before starting')
+
+    def _make_boolean(self, var):
+        if var == 'yes':
+            return True
+        elif var == 'no':
+            return False
+        else:
+            raise OSException(
+                    '`Variable` is not `yes` or `no`')
 
     def _show_message(self, message):
         oslogger.debug(message)

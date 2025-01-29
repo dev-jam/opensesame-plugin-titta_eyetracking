@@ -30,38 +30,20 @@ class TittaStopRecording(Item):
         self._check_start()
         self.set_item_onset()
         self.experiment.tracker.stop_recording(gaze=self.stop_gaze,
-                                                time_sync=self.stop_time_sync,
-                                                eye_image=self.stop_eye_image,
-                                                notifications=self.stop_notifications,
-                                                external_signal=self.stop_external_signal,
-                                                positioning=self.stop_positioning)
+                                               time_sync=self.stop_time_sync,
+                                               eye_image=self.stop_eye_image,
+                                               notifications=self.stop_notifications,
+                                               external_signal=self.stop_external_signal,
+                                               positioning=self.stop_positioning)
         self.experiment.titta_recording = False
 
     def _init_var(self):
-        if self.var.stop_gaze == 'yes':
-            self.stop_gaze = True
-        else:
-            self.stop_gaze = False
-        if self.var.stop_time_sync == 'yes':
-            self.stop_time_sync = True
-        else:
-            self.stop_time_sync = False
-        if self.var.stop_eye_image == 'yes':
-            self.stop_eye_image = True
-        else:
-            self.stop_eye_image = False
-        if self.var.stop_notifications == 'yes':
-            self.stop_notifications = True
-        else:
-            self.stop_notifications = False
-        if self.var.stop_external_signal == 'yes':
-            self.stop_external_signal = True
-        else:
-            self.stop_external_signal = False
-        if self.var.stop_positioning == 'yes':
-            self.stop_positioning = True
-        else:
-            self.stop_positioning = False
+        self.stop_gaze = self._make_boolean(self.var.stop_gaze)
+        self.stop_time_sync = self._make_boolean(self.var.stop_time_sync)
+        self.stop_eye_image = self._make_boolean(self.var.stop_eye_image)
+        self.stop_notifications = self._make_boolean(self.var.stop_notifications)
+        self.stop_external_signal = self._make_boolean(self.var.stop_external_signal)
+        self.stop_positioning = self._make_boolean(self.var.stop_positioning)
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):
@@ -78,6 +60,15 @@ class TittaStopRecording(Item):
             if not self.experiment.titta_recording:
                 raise OSException(
                         'Titta not recording, you first have to start recording before stopping')
+
+    def _make_boolean(self, var):
+        if var == 'yes':
+            return True
+        elif var == 'no':
+            return False
+        else:
+            raise OSException(
+                    '`Variable` is not `yes` or `no`')
 
     def _show_message(self, message):
         oslogger.debug(message)
