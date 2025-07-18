@@ -1,7 +1,13 @@
 """
-No rights reserved. All files in this repository are released into the public
-domain.
+This file is part of OpenSesame.
+
+This work is licensed under the Creative Commons Attribution 4.0 International License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/
+or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 """
+
+__author__ = "Bob Rosbag"
+__license__ = "CC BY 4.0"
 
 from libopensesame.py3compat import *
 from libopensesame.item import Item
