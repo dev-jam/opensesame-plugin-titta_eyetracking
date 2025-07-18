@@ -102,3 +102,7 @@ To minimize the risk of missing samples, the current repository uses TittaPy (pi
         "label": "<small>Titta Eye Tracking version 4.0.1</small>"
     }
 ]
+
+
+def supports(exp):
+    return exp.var.canvas_backend == 'psycho'
