@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [4.1.0] - 2025-07-17
+
+- license cleanup
+- disable items when PsychoPy is not selected as backend
+
 ## [4.0.1] - 2025-01-28
 
 - small bugfix in stop_recording
@@ -151,7 +156,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.0.1...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.1.0...HEAD
+[4.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.0.1...4.1.0
 [4.0.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.4.0...4.0.0
 [3.4.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/3.3.0...3.4.0
