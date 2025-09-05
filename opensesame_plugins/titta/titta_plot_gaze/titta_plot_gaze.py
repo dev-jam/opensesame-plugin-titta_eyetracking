@@ -40,7 +40,7 @@ class TittaPlotGaze(Item):
                     self._allowed_responses.append(r)
             if not self._allowed_responses:
                 self._allowed_responses = None
-            self._show_message("Response key(s) set to %s" % self._allowed_responses)
+            self._show_message(f"Response key(s) set to {self._allowed_responses}")
 
         if isinstance(self.var.timeout, int):
             if self.var.timeout > 0:
