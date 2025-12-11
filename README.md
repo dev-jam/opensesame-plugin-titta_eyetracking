@@ -19,8 +19,11 @@ To minimize the risk of missing samples, the current repository uses TittaPy (pi
 
 ## License
 
-The Titta Eye Tracking plugin is distributed under the terms of the Creative Commons Attribution 4.0 International Public License
-The full license should be included in the file LICENSE.md
+This software is distributed under the terms of the GNU General Public License 3. The full license should be included in the file `COPYING`, or can be obtained from:
+
+- <http://www.gnu.org/licenses/gpl.txt>
+
+This plugin contains works of others.
 
 
 ## Known bugs

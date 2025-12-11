@@ -7,7 +7,7 @@ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 """
 
 __author__ = "Bob Rosbag"
-__license__ = "CC BY 4.0"
+__license__ = "GPLv3"
 
 from libopensesame.py3compat import *
 from libopensesame.item import Item
