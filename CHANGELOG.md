@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [5.1.0] - 2026-01-19
+
+- fix Error export data to tsv external signal #2
+
 ## [5.0.0] - 2025-12-11
 
 - change incompatible CC BY 4.0 license to GPLv3
@@ -164,7 +168,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.0.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.1.0...HEAD
+[5.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.0.0...5.1.0
 [5.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.2.0...5.0.0
 [4.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.1.0...4.2.0
 [4.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.0.1...4.1.0
