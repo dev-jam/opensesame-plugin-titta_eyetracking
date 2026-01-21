@@ -133,7 +133,7 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
         self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
-        # self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())
+        self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_xres.setEnabled)
         self.checkbox_operator.stateChanged.connect(
@@ -142,5 +142,5 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.line_edit_screen_nr.setEnabled)
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_screen_name.setEnabled)
-        # self.checkbox_operator.stateChanged.connect(
-        #     self.checkbox_waitblanking.setEnabled)
+        self.checkbox_operator.stateChanged.connect(
+            self.checkbox_waitblanking.setEnabled)
