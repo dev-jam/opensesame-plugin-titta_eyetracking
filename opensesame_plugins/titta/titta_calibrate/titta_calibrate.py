@@ -32,8 +32,6 @@ class TittaCalibrate(Item):
         self._check_init()
 
     def run(self):
-        from titta import helpers_tobii
-        self.fixation_point = helpers_tobii.MyDot2(self.experiment.window)
         self._show_message('Starting calibration')
         self.set_item_onset()
         if self.experiment.titta_bimonocular_calibration == 'yes':
