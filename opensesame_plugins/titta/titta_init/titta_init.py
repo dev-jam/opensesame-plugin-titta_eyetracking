@@ -34,6 +34,10 @@ class TittaInit(Item):
         self.var.tracker = 'Tobii Pro Spectrum'
         self.var.bimonocular_calibration = 'no'
         self.var.ncalibration_targets = '5'
+        self.var.calibration_custom = 'no'
+        self.var.calibration_dot = "Thaler (default)"
+        self.var.calibration_dot_size = 30
+        self.var.calibration_movement_duration = 0.5
         self.var.operator = 'no'
         self.var.screen_name = 'default'
         self.var.screen_nr = 1
@@ -47,7 +51,7 @@ class TittaInit(Item):
         self._check_init()
 
         try:
-            from titta import Titta
+            from titta import Titta, helpers_tobii
         except Exception:
             raise OSException('Could not import titta')
 
@@ -61,6 +65,17 @@ class TittaInit(Item):
         self.settings.FILENAME = self.file_name
         self.settings.DATA_STORAGE_PATH = os.path.dirname(self.var.logfile)
         self.settings.N_CAL_TARGETS = self.var.ncalibration_targets
+
+        if self.var.calibration_custom == 'yes':
+            self.settings.MOVE_TARGET_DURATION = self.var.calibration_movement_duration
+            self.settings.graphics.TARGET_SIZE = self.var.calibration_dot_size
+            self.settings.graphics.TARGET_SIZE_INNER=self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
+
+            if self.var.calibration_dot == "Thaler (default)":
+                self.settings.CAL_TARGET = helpers_tobii.MyDot2(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
+            elif self.var.calibration_dot == "Black":
+                self.settings.CAL_TARGET = helpers_tobii.MyDot3(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
+
         self.settings.DEBUG = False
 
         if self.var.operator == 'yes':
@@ -129,11 +144,31 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
 
     def init_edit_widget(self):
         super().init_edit_widget()
+
+        # set default state
+        self.combobox_calibration_dot.setEnabled(
+            self.checkbox_calibration_custom.isChecked())
+        self.line_edit_calibration_dot_size.setEnabled(
+            self.checkbox_calibration_custom.isChecked())
+        self.line_edit_calibration_movement_duration.setEnabled(
+            self.checkbox_calibration_custom.isChecked())
+
+        # connect to checkbox_calibration_custom
+        self.checkbox_calibration_custom.stateChanged.connect(
+            self.combobox_calibration_dot.setEnabled)
+        self.checkbox_calibration_custom.stateChanged.connect(
+            self.line_edit_calibration_dot_size.setEnabled)
+        self.checkbox_calibration_custom.stateChanged.connect(
+            self.line_edit_calibration_movement_duration.setEnabled)
+
+        # set default state
         self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
         self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())
+
+        # connect to checkbox_operator
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_xres.setEnabled)
         self.checkbox_operator.stateChanged.connect(

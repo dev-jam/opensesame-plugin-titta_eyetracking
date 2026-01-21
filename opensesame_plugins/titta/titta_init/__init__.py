@@ -53,6 +53,34 @@ controls = [
         "tooltip": "Number of calibration targets"
     },  {
         "type": "checkbox",
+        "var": "calibration_custom",
+        "label": "Custom calibration settings",
+        "name": "checkbox_calibration_custom",
+        "tooltip": "Enable custom calibration settings"
+    },  {
+        "type": "combobox",
+        "var": "calibration_dot",
+        "label": "Select option",
+        "options": [
+            "Thaler (default)",
+            "Black"
+        ],
+        "name": "combobox_calibration_dot",
+        "tooltip": "Select a calibration dot"
+    }, {
+        "type": "line_edit",
+        "var": "calibration_movement_duration",
+        "label": "Calibration movement duration (lower is faster)",
+        "name": "line_edit_calibration_movement_duration",
+        "tooltip": "Decimal number value"
+    },  {
+        "type": "line_edit",
+        "var": "calibration_dot_size",
+        "label": "Calibration dot size",
+        "name": "line_edit_calibration_dot_size",
+        "tooltip": "Integer value"
+    },  {
+        "type": "checkbox",
         "var": "operator",
         "label": "Operator Screen",
         "name": "checkbox_operator",
