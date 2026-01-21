@@ -60,13 +60,13 @@ controls = [
     },  {
         "type": "combobox",
         "var": "calibration_dot",
-        "label": "Select calibration dot type",
+        "label": "Calibration dot type",
         "options": [
             "Thaler (default)",
             "Black"
         ],
         "name": "combobox_calibration_dot",
-        "tooltip": "Select a calibration dot"
+        "tooltip": "Select a calibration dot type"
     }, {
         "type": "line_edit",
         "var": "calibration_dot_size",
@@ -76,9 +76,9 @@ controls = [
     },  {
         "type": "line_edit",
         "var": "calibration_movement_duration",
-        "label": "Calibration dot movement duration (lower is faster)",
+        "label": "Movement duration (lower is faster)",
         "name": "line_edit_calibration_movement_duration",
-        "tooltip": "Decimal number value"
+        "tooltip": "Decimal value"
     },  {
         "type": "checkbox",
         "var": "operator",
