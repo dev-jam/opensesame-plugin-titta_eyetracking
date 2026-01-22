@@ -141,9 +141,13 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
     def __init__(self, name, experiment, script=None):
         TittaInit.__init__(self, name, experiment, script)
         QtAutoPlugin.__init__(self, __file__)
+        self._need_to_set_enabled = True
 
-    def init_edit_widget(self):
-        super().init_edit_widget()
+    def auto_edit_widget(self):
+        super().auto_edit_widget()
+        if not self._need_to_set_enabled:
+            return
+        self._need_to_set_enabled = False
 
         # set default state
         self.combobox_calibration_dot.setEnabled(
