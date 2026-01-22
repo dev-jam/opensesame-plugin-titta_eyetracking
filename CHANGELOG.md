@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [5.2.0] - 2026-01-22
+
+- Add custom calibration options
+- fix Inconsistent UI state initialization in QtAutoPlugin (Qt6) #829
+
 ## [5.1.0] - 2026-01-19
 
 - fix Error export data to tsv external signal #2
@@ -168,7 +173,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.1.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.2.0...HEAD
+[5.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.1.0...5.2.0
 [5.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/5.0.0...5.1.0
 [5.0.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.2.0...5.0.0
 [4.2.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/4.1.0...4.2.0
