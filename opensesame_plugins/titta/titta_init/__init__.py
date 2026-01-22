@@ -127,7 +127,7 @@ To minimize the risk of missing samples, the current repository uses TittaPy (pi
         "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
-        "label": "<small>Titta Eye Tracking version 5.1.0</small>"
+        "label": "<small>Titta Eye Tracking version 5.2.0</small>"
     }
 ]
 
