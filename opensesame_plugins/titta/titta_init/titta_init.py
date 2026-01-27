@@ -39,6 +39,9 @@ class TittaInit(Item):
         self.var.calibration_manual = 'no'
         self.var.calibration_dot = "Thaler (default)"
         self.var.calibration_dot_size = 30
+        self.var.calibration_animate = 'yes'
+        self.var.calibration_pacing_interval = 1.0
+        self.var.calibration_auto_pace = "Autoaccept (default)"
         self.var.calibration_movement_duration = 0.5
         self.var.operator = 'no'
         self.var.screen_name = 'default'
@@ -74,16 +77,36 @@ class TittaInit(Item):
         else:
             print(f'Using default sampling rate: {self.settings.SAMPLING_RATE}')
         if self.var.calibration_manual == 'yes':
-            self.settings.MOVE_TARGET_DURATION = self.var.calibration_movement_duration
+
             self.settings.graphics.TARGET_SIZE = self.var.calibration_dot_size
             self.settings.graphics.TARGET_SIZE_INNER=self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
+
+            if isinstance(self.var.calibration_pacing_interval, float):
+                self.PACING_INTERVAL = self.var.calibration_pacing_interval
+            else:
+                raise OSException('Pacing interval needs to be a decimal/float')
+
+            if isinstance(self.var.calibration_movement_duration, float):
+                self.settings.MOVE_TARGET_DURATION = self.var.calibration_movement_duration
+            else:
+                raise OSException('Movement duration needs to be a decimal/float')
+
+            if self.var.calibration_animate == 'yes':
+                self.ANIMATE_CALIBRATION = True
+            else:
+                self.ANIMATE_CALIBRATION = False
+
+            if self.var.calibration_auto_pace == "Space bar":
+                self.AUTO_PACE = 0
+            elif self.var.calibration_auto_pace == "Semi autoaccept":
+                self.AUTO_PACE = 1
+            elif self.var.calibration_auto_pace == "Autoaccept (default)":
+                self.AUTO_PACE = 2
 
             if self.var.calibration_dot == "Thaler (default)":
                 self.settings.CAL_TARGET = helpers_tobii.MyDot2(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
             elif self.var.calibration_dot == "Black":
                 self.settings.CAL_TARGET = helpers_tobii.MyDot3(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
-
-        self.settings.DEBUG = False
 
         if self.var.operator == 'yes':
             # Monitor/geometry operator screen
@@ -171,6 +194,12 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.checkbox_calibration_manual.isChecked())
         self.line_edit_calibration_movement_duration.setEnabled(
             self.checkbox_calibration_manual.isChecked())
+        self.checkbox_calibration_animate.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.combobox_calibration_auto_pace.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.line_edit_calibration_pacing_interval.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
 
         # connect to checkbox_calibration_manual
         self.checkbox_calibration_manual.stateChanged.connect(
@@ -179,6 +208,12 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.line_edit_calibration_dot_size.setEnabled)
         self.checkbox_calibration_manual.stateChanged.connect(
             self.line_edit_calibration_movement_duration.setEnabled)
+        self.checkbox_calibration_manual.stateChanged.connect(
+            self.checkbox_calibration_animate.setEnabled)
+        self.checkbox_calibration_manual.stateChanged.connect(
+            self.combobox_calibration_auto_pace.setEnabled)
+        self.checkbox_calibration_manual.stateChanged.connect(
+            self.line_edit_calibration_pacing_interval.setEnabled)
 
         # set default state
         self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())

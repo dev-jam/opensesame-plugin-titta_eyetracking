@@ -57,11 +57,18 @@ controls = [
         "label": "Bimonocular Calibration",
         "name": "checkbox_bimonocular_calibration",
         "tooltip": "Bimonocular Calibration"
-    }, {
-        "type": "line_edit",
+    },  {
+        "type": "combobox",
         "var": "ncalibration_targets",
         "label": "Number of calibration targets",
-        "name": "line_edit_ncal",
+        "options": [
+            "0",
+            "1",
+            "5",
+            "9",
+            "13"
+        ],
+        "name": "combobox_ncal",
         "tooltip": "Number of calibration targets"
     },  {
         "type": "checkbox",
@@ -86,11 +93,34 @@ controls = [
         "name": "line_edit_calibration_dot_size",
         "tooltip": "Integer value"
     },  {
+        "type": "checkbox",
+        "var": "calibration_animate",
+        "label": "Animate_calibration",
+        "name": "checkbox_calibration_animate",
+        "tooltip": "Static or animated calibration dots"
+    }, {
+        "type": "line_edit",
+        "var": "calibration_pacing_interval",
+        "label": "Calibration pacing interval",
+        "name": "line_edit_calibration_pacing_interval",
+        "tooltip": "How long to present the target at calibration/validation location until samples are collected (Float value)"
+    },  {
+        "type": "combobox",
+        "var": "calibration_auto_pace",
+        "label": "Calibration auto pace",
+        "options": [
+            "Space bar",
+            "Semi autoaccept",
+            "Autoaccept (default)"
+        ],
+        "name": "combobox_calibration_auto_pace",
+        "tooltip": "accept all points with space bar, semi autoaccept (accept only first point with space bar, default), or autoaccept)"
+    }, {
         "type": "line_edit",
         "var": "calibration_movement_duration",
         "label": "Movement duration (lower is faster)",
         "name": "line_edit_calibration_movement_duration",
-        "tooltip": "Decimal value"
+        "tooltip": "Duration for calibration/validation target to move from one position to the next (Float value)"
     },  {
         "type": "checkbox",
         "var": "operator",
