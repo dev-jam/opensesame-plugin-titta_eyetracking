@@ -19,7 +19,7 @@ controls = [
     },  {
         "type": "combobox",
         "var": "tracker",
-        "label": "Select option",
+        "label": "Select Eye Tracker",
         "options": [
             "Tobii Pro Spectrum",
             "Tobii Pro Fusion",
@@ -39,7 +39,19 @@ controls = [
         ],
         "name": "combobox_tracker",
         "tooltip": "Select an Eye Tracker"
+    },  {
+        "type": "checkbox",
+        "var": "sampling_rate_manual",
+        "label": "Manual Sampling Rate",
+        "name": "checkbox_sampling_rate_manual",
+        "tooltip": "Enable manual sampling rate"
     }, {
+        "type": "line_edit",
+        "var": "sampling_rate",
+        "label": "Sampling Rate (Hz)",
+        "name": "line_edit_sampling_rate",
+        "tooltip": "Integer value"
+    },  {
         "type": "checkbox",
         "var": "bimonocular_calibration",
         "label": "Bimonocular Calibration",
@@ -53,10 +65,10 @@ controls = [
         "tooltip": "Number of calibration targets"
     },  {
         "type": "checkbox",
-        "var": "calibration_custom",
-        "label": "Custom calibration settings",
-        "name": "checkbox_calibration_custom",
-        "tooltip": "Enable custom calibration settings"
+        "var": "calibration_manual",
+        "label": "Manual calibration settings",
+        "name": "checkbox_calibration_manual",
+        "tooltip": "Enable manual calibration settings"
     },  {
         "type": "combobox",
         "var": "calibration_dot",

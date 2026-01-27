@@ -32,9 +32,11 @@ class TittaInit(Item):
         self.var.dummy_mode = 'no'
         self.var.verbose = 'no'
         self.var.tracker = 'Tobii Pro Spectrum'
+        self.var.sampling_rate_manual = 'no'
+        self.var.sampling_rate = ''
         self.var.bimonocular_calibration = 'no'
         self.var.ncalibration_targets = '5'
-        self.var.calibration_custom = 'no'
+        self.var.calibration_manual = 'no'
         self.var.calibration_dot = "Thaler (default)"
         self.var.calibration_dot_size = 30
         self.var.calibration_movement_duration = 0.5
@@ -66,7 +68,12 @@ class TittaInit(Item):
         self.settings.DATA_STORAGE_PATH = os.path.dirname(self.var.logfile)
         self.settings.N_CAL_TARGETS = self.var.ncalibration_targets
 
-        if self.var.calibration_custom == 'yes':
+        if isinstance(self.var.sampling_rate, int):
+            self.settings.SAMPLING_RATE = self.var.sampling_rate
+            print(f'Using manual sampling rate: {self.settings.SAMPLING_RATE}')
+        else:
+            print(f'Using default sampling rate: {self.settings.SAMPLING_RATE}')
+        if self.var.calibration_manual == 'yes':
             self.settings.MOVE_TARGET_DURATION = self.var.calibration_movement_duration
             self.settings.graphics.TARGET_SIZE = self.var.calibration_dot_size
             self.settings.graphics.TARGET_SIZE_INNER=self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
@@ -150,19 +157,27 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
         self._need_to_set_enabled = False
 
         # set default state
-        self.combobox_calibration_dot.setEnabled(
-            self.checkbox_calibration_custom.isChecked())
-        self.line_edit_calibration_dot_size.setEnabled(
-            self.checkbox_calibration_custom.isChecked())
-        self.line_edit_calibration_movement_duration.setEnabled(
-            self.checkbox_calibration_custom.isChecked())
+        self.line_edit_sampling_rate.setEnabled(
+            self.checkbox_sampling_rate_manual.isChecked())
 
-        # connect to checkbox_calibration_custom
-        self.checkbox_calibration_custom.stateChanged.connect(
+        # connect to checkbox_sampling_rate_manual
+        self.checkbox_sampling_rate_manual.stateChanged.connect(
+            self.line_edit_sampling_rate.setEnabled)
+
+        # set default state
+        self.combobox_calibration_dot.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.line_edit_calibration_dot_size.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.line_edit_calibration_movement_duration.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+
+        # connect to checkbox_calibration_manual
+        self.checkbox_calibration_manual.stateChanged.connect(
             self.combobox_calibration_dot.setEnabled)
-        self.checkbox_calibration_custom.stateChanged.connect(
+        self.checkbox_calibration_manual.stateChanged.connect(
             self.line_edit_calibration_dot_size.setEnabled)
-        self.checkbox_calibration_custom.stateChanged.connect(
+        self.checkbox_calibration_manual.stateChanged.connect(
             self.line_edit_calibration_movement_duration.setEnabled)
 
         # set default state
