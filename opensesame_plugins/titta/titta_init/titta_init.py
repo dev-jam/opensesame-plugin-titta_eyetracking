@@ -62,40 +62,51 @@ class TittaInit(Item):
 
         if self.var.canvas_backend != 'psycho':
             raise OSException('Titta only supports PsychoPy as backend')
+
         self.file_name = 'subject-' + str(self.var.subject_nr)
         self.experiment.titta_file_name = os.path.normpath(os.path.join(os.path.dirname(self.var.logfile), self.file_name))
         self._show_message(f'Data will be stored in: {self.file_name}')
 
+        # Get default settings for the selected tracker
         self.settings = Titta.get_defaults(self.var.tracker)
+
+        # Basic settings
         self.settings.FILENAME = self.file_name
         self.settings.DATA_STORAGE_PATH = os.path.dirname(self.var.logfile)
         self.settings.N_CAL_TARGETS = self.var.ncalibration_targets
 
+        # Sampling rate
         if isinstance(self.var.sampling_rate, int):
             self.settings.SAMPLING_RATE = self.var.sampling_rate
             print(f'Using manual sampling rate: {self.settings.SAMPLING_RATE}')
         else:
             print(f'Using default sampling rate: {self.settings.SAMPLING_RATE}')
+
+        # Manual calibration settings
         if self.var.calibration_manual == 'yes':
-
+            # Target size
             self.settings.graphics.TARGET_SIZE = self.var.calibration_dot_size
-            self.settings.graphics.TARGET_SIZE_INNER = self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
+            self.settings.graphics.TARGET_SIZE_INNER = self.settings.graphics.TARGET_SIZE / 6
 
+            # Pacing interval
             if isinstance(self.var.calibration_pacing_interval, float):
                 self.settings.PACING_INTERVAL = self.var.calibration_pacing_interval
             else:
                 raise OSException('Pacing interval needs to be a decimal/float')
 
+            # Movement duration
             if isinstance(self.var.calibration_movement_duration, float):
                 self.settings.MOVE_TARGET_DURATION = self.var.calibration_movement_duration
             else:
                 raise OSException('Movement duration needs to be a decimal/float')
 
+            # Animate calibration
             if self.var.calibration_animate == 'yes':
                 self.settings.ANIMATE_CALIBRATION = True
             else:
                 self.settings.ANIMATE_CALIBRATION = False
 
+            # Auto pace mode
             if self.var.calibration_auto_pace == "Space bar":
                 self.settings.AUTO_PACE = 0
             elif self.var.calibration_auto_pace == "Semi autoaccept":
@@ -103,40 +114,55 @@ class TittaInit(Item):
             elif self.var.calibration_auto_pace == "Autoaccept (default)":
                 self.settings.AUTO_PACE = 2
 
+            # Calibration dot type
             if self.var.calibration_dot == "Thaler (default)":
-                self.settings.CAL_TARGET = helpers_tobii.MyDot2(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
+                self.settings.CAL_TARGET = helpers_tobii.MyDot2(
+                    units='pix',
+                    outer_diameter=self.settings.graphics.TARGET_SIZE,
+                    inner_diameter=self.settings.graphics.TARGET_SIZE_INNER
+                )
             elif self.var.calibration_dot == "Black":
-                self.settings.CAL_TARGET = helpers_tobii.MyDot3(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
+                self.settings.CAL_TARGET = helpers_tobii.MyDot3(
+                    units='pix',
+                    outer_diameter=self.settings.graphics.TARGET_SIZE,
+                    inner_diameter=self.settings.graphics.TARGET_SIZE_INNER
+                )
 
+        # Operator screen setup
         if self.var.operator == 'yes':
             # Monitor/geometry operator screen
-            MY_MONITOR_OP                  = self.var.screen_name # needs to exists in PsychoPy monitor center
-            FULLSCREEN_OP                  = False
-            SCREEN_RES_OP                  = [self.var.xres, self.var.yres]
-            SCREEN_WIDTH_OP                = 52.7 # cm
-            VIEWING_DIST_OP                = 63 #  # distance from eye to center of screen (cm)
+            MY_MONITOR_OP = self.var.screen_name # needs to exists in PsychoPy monitor center
+            FULLSCREEN_OP = False
+            SCREEN_RES_OP = [self.var.xres, self.var.yres]
+            SCREEN_WIDTH_OP = 52.7  # cm
+            VIEWING_DIST_OP = 63  # distance from eye to center of screen (cm)
 
             from psychopy import visual, monitors
 
-            mon_op = monitors.Monitor(MY_MONITOR_OP)  # Defined in defaults file
-            mon_op.setWidth(SCREEN_WIDTH_OP)          # Width of screen (cm)
-            mon_op.setDistance(VIEWING_DIST_OP)       # Distance eye / monitor (cm)
+            mon_op = monitors.Monitor(MY_MONITOR_OP)
+            mon_op.setWidth(SCREEN_WIDTH_OP)
+            mon_op.setDistance(VIEWING_DIST_OP)
             mon_op.setSizePix(SCREEN_RES_OP)
 
-            self.experiment.window_op = visual.Window(monitor=mon_op,
-                                                      fullscr=FULLSCREEN_OP,
-                                                      screen=self.var.screen_nr,
-                                                      size=SCREEN_RES_OP,
-                                                      units='norm',
-                                                      waitBlanking=self.experiment.titta_operator_waitblanking)
+            self.experiment.window_op = visual.Window(
+                monitor=mon_op,
+                fullscr=FULLSCREEN_OP,
+                screen=self.var.screen_nr,
+                size=SCREEN_RES_OP,
+                units='norm',
+                waitBlanking=self.experiment.titta_operator_waitblanking
+            )
             self.experiment.cleanup_functions.append(self.experiment.window_op.close)
 
-        self._show_message('Initialising Eye Tracker')
+        # Initialize tracker
+        self._show_message('Initializing Eye Tracker')
         self.set_item_onset()
         self.experiment.tracker = Titta.Connect(self.settings)
+
         if self.var.dummy_mode == 'yes':
             self._show_message('Dummy mode activated')
             self.experiment.tracker.set_dummy_mode()
+
         self.experiment.tracker.init()
 
     def _check_init(self):
@@ -179,15 +205,13 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             return
         self._need_to_set_enabled = False
 
-        # set default state
+        # Sampling rate controls
         self.line_edit_sampling_rate.setEnabled(
             self.checkbox_sampling_rate_manual.isChecked())
-
-        # connect to checkbox_sampling_rate_manual
         self.checkbox_sampling_rate_manual.stateChanged.connect(
             self.line_edit_sampling_rate.setEnabled)
 
-        # set default state
+        # Manual calibration controls
         self.combobox_calibration_dot.setEnabled(
             self.checkbox_calibration_manual.isChecked())
         self.line_edit_calibration_dot_size.setEnabled(
@@ -201,7 +225,6 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
         self.line_edit_calibration_pacing_interval.setEnabled(
             self.checkbox_calibration_manual.isChecked())
 
-        # connect to checkbox_calibration_manual
         self.checkbox_calibration_manual.stateChanged.connect(
             self.combobox_calibration_dot.setEnabled)
         self.checkbox_calibration_manual.stateChanged.connect(
@@ -215,14 +238,13 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
         self.checkbox_calibration_manual.stateChanged.connect(
             self.line_edit_calibration_pacing_interval.setEnabled)
 
-        # set default state
+        # Operator screen controls
         self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
         self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
         self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())
 
-        # connect to checkbox_operator
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_xres.setEnabled)
         self.checkbox_operator.stateChanged.connect(
