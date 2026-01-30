@@ -89,19 +89,19 @@ controls = [
     }, {
         "type": "line_edit",
         "var": "calibration_dot_size",
-        "label": "Calibration dot size",
+        "label": "Calibration dot size (pixels)",
         "name": "line_edit_calibration_dot_size",
         "tooltip": "Integer value"
     },  {
         "type": "checkbox",
         "var": "calibration_animate",
-        "label": "Animate_calibration",
+        "label": "Animate calibration",
         "name": "checkbox_calibration_animate",
         "tooltip": "Static or animated calibration dots"
     }, {
         "type": "line_edit",
         "var": "calibration_pacing_interval",
-        "label": "Calibration pacing interval",
+        "label": "Calibration pacing interval (s)",
         "name": "line_edit_calibration_pacing_interval",
         "tooltip": "How long to present the target at calibration/validation location until samples are collected (Float value)"
     },  {
@@ -118,7 +118,7 @@ controls = [
     }, {
         "type": "line_edit",
         "var": "calibration_movement_duration",
-        "label": "Movement duration (lower is faster)",
+        "label": "Movement duration (s, lower is faster)",
         "name": "line_edit_calibration_movement_duration",
         "tooltip": "Duration for calibration/validation target to move from one position to the next (Float value)"
     },  {
