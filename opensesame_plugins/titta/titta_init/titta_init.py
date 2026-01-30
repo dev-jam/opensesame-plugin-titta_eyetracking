@@ -32,8 +32,10 @@ class TittaInit(Item):
         self.var.dummy_mode = 'no'
         self.var.verbose = 'no'
         self.var.tracker = 'Tobii Pro Spectrum'
+        self.var.tracker_address = ''
         self.var.sampling_rate_manual = 'no'
         self.var.sampling_rate = ''
+        self.var.tracking_mode = 'Default'
         self.var.bimonocular_calibration = 'no'
         self.var.ncalibration_targets = '5'
         self.var.calibration_manual = 'no'
@@ -43,6 +45,10 @@ class TittaInit(Item):
         self.var.calibration_pacing_interval = 1.0
         self.var.calibration_auto_pace = "Autoaccept (default)"
         self.var.calibration_movement_duration = 0.5
+        self.var.record_eye_images_during_calibration = 'no'
+        self.var.head_box_center_x = ''
+        self.var.head_box_center_y = ''
+        self.var.head_box_center_z = ''
         self.var.operator = 'no'
         self.var.screen_name = 'default'
         self.var.screen_nr = 1
@@ -73,7 +79,13 @@ class TittaInit(Item):
         # Basic settings
         self.settings.FILENAME = self.file_name
         self.settings.DATA_STORAGE_PATH = os.path.dirname(self.var.logfile)
+
+        # Calibration settings
         self.settings.N_CAL_TARGETS = self.var.ncalibration_targets
+
+        # Tracker address
+        if self.var.tracker_address:
+            self.settings.TRACKER_ADDRESS = self.var.tracker_address
 
         # Sampling rate
         if isinstance(self.var.sampling_rate, int):
@@ -81,6 +93,29 @@ class TittaInit(Item):
             print(f'Using manual sampling rate: {self.settings.SAMPLING_RATE}')
         else:
             print(f'Using default sampling rate: {self.settings.SAMPLING_RATE}')
+
+        # Tracking mode
+        if self.var.tracking_mode != 'Default':
+            self.settings.TRACKING_MODE = self.var.tracking_mode
+            self._show_message(f'Using tracking mode: {self.settings.TRACKING_MODE}')
+
+        # Record eye images during calibration
+        if self.var.record_eye_images_during_calibration == 'yes':
+            self.settings.RECORD_EYE_IMAGES_DURING_CALIBRATION = True
+        else:
+            self.settings.RECORD_EYE_IMAGES_DURING_CALIBRATION = False
+
+        # Head box center
+        if self.var.head_box_center_x and self.var.head_box_center_y and self.var.head_box_center_z:
+            try:
+                self.settings.HEAD_BOX_CENTER = [
+                    float(self.var.head_box_center_x),
+                    float(self.var.head_box_center_y),
+                    float(self.var.head_box_center_z)
+                ]
+                self._show_message(f'Using head box center: {self.settings.HEAD_BOX_CENTER}')
+            except ValueError:
+                raise OSException('Head box center coordinates must be numeric values')
 
         # Manual calibration settings
         if self.var.calibration_manual == 'yes':
@@ -155,7 +190,7 @@ class TittaInit(Item):
             self.experiment.cleanup_functions.append(self.experiment.window_op.close)
 
         # Initialize tracker
-        self._show_message('Initializing Eye Tracker')
+        self._show_message('Initialising Eye Tracker')
         self.set_item_onset()
         self.experiment.tracker = Titta.Connect(self.settings)
 

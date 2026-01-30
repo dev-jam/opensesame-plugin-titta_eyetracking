@@ -40,6 +40,12 @@ controls = [
         "name": "combobox_tracker",
         "tooltip": "Select an Eye Tracker"
     },  {
+        "type": "line_edit",
+        "var": "tracker_address",
+        "label": "Eye Tracker Address (optional)",
+        "name": "line_edit_tracker_address",
+        "tooltip": "IP address or empty to auto-detect"
+    },  {
         "type": "checkbox",
         "var": "sampling_rate_manual",
         "label": "Manual Sampling Rate",
@@ -51,6 +57,17 @@ controls = [
         "label": "Sampling Rate (Hz)",
         "name": "line_edit_sampling_rate",
         "tooltip": "Integer value"
+    },  {
+        "type": "combobox",
+        "var": "tracking_mode",
+        "label": "Tracking mode",
+        "options": [
+            "Default",
+            "human",
+            "animal"
+        ],
+        "name": "combobox_tracking_mode",
+        "tooltip": "Tracking mode (only for some eye trackers)"
     },  {
         "type": "checkbox",
         "var": "bimonocular_calibration",
@@ -121,6 +138,30 @@ controls = [
         "label": "Movement duration (s, lower is faster)",
         "name": "line_edit_calibration_movement_duration",
         "tooltip": "Duration for calibration/validation target to move from one position to the next (Float value)"
+    },  {
+        "type": "checkbox",
+        "var": "record_eye_images_during_calibration",
+        "label": "Record eye images during calibration",
+        "name": "checkbox_record_eye_images_during_calibration",
+        "tooltip": "Record eye images during calibration"
+    },  {
+        "type": "line_edit",
+        "var": "head_box_center_x",
+        "label": "Head box center X (mm, optional)",
+        "name": "line_edit_head_box_center_x",
+        "tooltip": "X coordinate in user coordinate system (UCS) or empty for auto"
+    },  {
+        "type": "line_edit",
+        "var": "head_box_center_y",
+        "label": "Head box center Y (mm, optional)",
+        "name": "line_edit_head_box_center_y",
+        "tooltip": "Y coordinate in user coordinate system (UCS) or empty for auto"
+    },  {
+        "type": "line_edit",
+        "var": "head_box_center_z",
+        "label": "Head box center Z (mm, optional)",
+        "name": "line_edit_head_box_center_z",
+        "tooltip": "Z coordinate in user coordinate system (UCS) or empty for auto"
     },  {
         "type": "checkbox",
         "var": "operator",
