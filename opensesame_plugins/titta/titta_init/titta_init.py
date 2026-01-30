@@ -82,7 +82,7 @@ class TittaInit(Item):
             self.settings.graphics.TARGET_SIZE_INNER=self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
 
             if isinstance(self.var.calibration_pacing_interval, float):
-                self.PACING_INTERVAL = self.var.calibration_pacing_interval
+                self.settings.PACING_INTERVAL = self.var.calibration_pacing_interval
             else:
                 raise OSException('Pacing interval needs to be a decimal/float')
 
@@ -92,16 +92,16 @@ class TittaInit(Item):
                 raise OSException('Movement duration needs to be a decimal/float')
 
             if self.var.calibration_animate == 'yes':
-                self.ANIMATE_CALIBRATION = True
+                self.settings.ANIMATE_CALIBRATION = True
             else:
-                self.ANIMATE_CALIBRATION = False
+                self.settings.ANIMATE_CALIBRATION = False
 
             if self.var.calibration_auto_pace == "Space bar":
-                self.AUTO_PACE = 0
+                self.settings.AUTO_PACE = 0
             elif self.var.calibration_auto_pace == "Semi autoaccept":
-                self.AUTO_PACE = 1
+                self.settings.AUTO_PACE = 1
             elif self.var.calibration_auto_pace == "Autoaccept (default)":
-                self.AUTO_PACE = 2
+                self.settings.AUTO_PACE = 2
 
             if self.var.calibration_dot == "Thaler (default)":
                 self.settings.CAL_TARGET = helpers_tobii.MyDot2(units='pix', outer_diameter=self.settings.graphics.TARGET_SIZE, inner_diameter=self.settings.graphics.TARGET_SIZE_INNER)
