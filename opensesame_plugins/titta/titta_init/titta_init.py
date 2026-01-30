@@ -106,16 +106,15 @@ class TittaInit(Item):
             self.settings.RECORD_EYE_IMAGES_DURING_CALIBRATION = False
 
         # Head box center
-        if self.var.head_box_center_x and self.var.head_box_center_y and self.var.head_box_center_z:
-            try:
+        if self.var.headbox_manual == 'yes':
+            if isinstance(self.var.head_box_center_x, int) and isinstance(self.var.head_box_center_y, int) and isinstance(self.var.head_box_center_z, int):
                 self.settings.HEAD_BOX_CENTER = [
-                    float(self.var.head_box_center_x),
-                    float(self.var.head_box_center_y),
-                    float(self.var.head_box_center_z)
+                    self.var.head_box_center_x,
+                    self.var.head_box_center_y,
+                    self.var.head_box_center_z
                 ]
                 self._show_message(f'Using head box center: {self.settings.HEAD_BOX_CENTER}')
-            except ValueError:
-                raise OSException('Head box center coordinates must be numeric values')
+            raise OSException('Head box center coordinates must be integers and have values for three dimensions')
 
         # Manual calibration settings
         if self.var.calibration_manual == 'yes':
@@ -272,6 +271,18 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.combobox_calibration_auto_pace.setEnabled)
         self.checkbox_calibration_manual.stateChanged.connect(
             self.line_edit_calibration_pacing_interval.setEnabled)
+
+        # Head box controls
+        self.line_edit_head_box_center_x.setEnabled(self.checkbox_headbox_manual.isChecked())
+        self.line_edit_head_box_center_y.setEnabled(self.checkbox_headbox_manual.isChecked())
+        self.line_edit_head_box_center_z.setEnabled(self.checkbox_headbox_manual.isChecked())
+
+        self.checkbox_headbox_manual.stateChanged.connect(
+            self.line_edit_head_box_center_x.setEnabled)
+        self.checkbox_headbox_manual.stateChanged.connect(
+            self.line_edit_head_box_center_y.setEnabled)
+        self.checkbox_headbox_manual.stateChanged.connect(
+            self.line_edit_head_box_center_z.setEnabled)
 
         # Operator screen controls
         self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())

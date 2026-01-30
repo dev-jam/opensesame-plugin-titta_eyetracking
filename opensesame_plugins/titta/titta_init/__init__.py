@@ -10,13 +10,13 @@ controls = [
         "label": "Dummy mode",
         "name": "checkbox_dummy_mode",
         "tooltip": "Run in dummy mode"
-    },  {
+    }, {
         "type": "checkbox",
         "var": "verbose",
         "label": "Verbose mode",
         "name": "checkbox_verbose_mode",
         "tooltip": "Run in verbose mode"
-    },  {
+    }, {
         "type": "combobox",
         "var": "tracker",
         "label": "Select Eye Tracker",
@@ -39,13 +39,13 @@ controls = [
         ],
         "name": "combobox_tracker",
         "tooltip": "Select an Eye Tracker"
-    },  {
+    }, {
         "type": "line_edit",
         "var": "tracker_address",
         "label": "Eye Tracker Address (optional)",
         "name": "line_edit_tracker_address",
         "tooltip": "IP address or empty to auto-detect"
-    },  {
+    }, {
         "type": "checkbox",
         "var": "sampling_rate_manual",
         "label": "Manual Sampling Rate",
@@ -57,7 +57,7 @@ controls = [
         "label": "Sampling Rate (Hz)",
         "name": "line_edit_sampling_rate",
         "tooltip": "Integer value"
-    },  {
+    }, {
         "type": "combobox",
         "var": "tracking_mode",
         "label": "Tracking mode",
@@ -68,13 +68,13 @@ controls = [
         ],
         "name": "combobox_tracking_mode",
         "tooltip": "Tracking mode (only for some eye trackers)"
-    },  {
+    }, {
         "type": "checkbox",
         "var": "bimonocular_calibration",
         "label": "Bimonocular Calibration",
         "name": "checkbox_bimonocular_calibration",
         "tooltip": "Bimonocular Calibration"
-    },  {
+    }, {
         "type": "combobox",
         "var": "ncalibration_targets",
         "label": "Number of calibration targets",
@@ -87,13 +87,19 @@ controls = [
         ],
         "name": "combobox_ncal",
         "tooltip": "Number of calibration targets"
-    },  {
+    }, {
+        "type": "checkbox",
+        "var": "record_eye_images_during_calibration",
+        "label": "Record eye images during calibration",
+        "name": "checkbox_record_eye_images_during_calibration",
+        "tooltip": "Record eye images during calibration"
+    }, {
         "type": "checkbox",
         "var": "calibration_manual",
         "label": "Manual calibration settings",
         "name": "checkbox_calibration_manual",
         "tooltip": "Enable manual calibration settings"
-    },  {
+    }, {
         "type": "combobox",
         "var": "calibration_dot",
         "label": "Calibration dot type",
@@ -109,7 +115,7 @@ controls = [
         "label": "Calibration dot size (pixels)",
         "name": "line_edit_calibration_dot_size",
         "tooltip": "Integer value"
-    },  {
+    }, {
         "type": "checkbox",
         "var": "calibration_animate",
         "label": "Animate calibration",
@@ -121,7 +127,7 @@ controls = [
         "label": "Calibration pacing interval (s)",
         "name": "line_edit_calibration_pacing_interval",
         "tooltip": "How long to present the target at calibration/validation location until samples are collected (Float value)"
-    },  {
+    }, {
         "type": "combobox",
         "var": "calibration_auto_pace",
         "label": "Calibration auto pace",
@@ -138,67 +144,67 @@ controls = [
         "label": "Movement duration (s, lower is faster)",
         "name": "line_edit_calibration_movement_duration",
         "tooltip": "Duration for calibration/validation target to move from one position to the next (Float value)"
-    },  {
+    }, {
         "type": "checkbox",
-        "var": "record_eye_images_during_calibration",
-        "label": "Record eye images during calibration",
-        "name": "checkbox_record_eye_images_during_calibration",
-        "tooltip": "Record eye images during calibration"
-    },  {
+        "var": "headbox_manual",
+        "label": "Manual 3D location of the headbox center",
+        "name": "checkbox_headbox_manual",
+        "tooltip": "3D location of the headbox center (position of head circle)"
+    }, {
         "type": "line_edit",
         "var": "head_box_center_x",
-        "label": "Head box center X (mm, optional)",
+        "label": "Head box center X (mm)",
         "name": "line_edit_head_box_center_x",
-        "tooltip": "X coordinate in user coordinate system (UCS) or empty for auto"
-    },  {
+        "tooltip": "X coordinate in user coordinate system (UCS, in mm)"
+    }, {
         "type": "line_edit",
         "var": "head_box_center_y",
-        "label": "Head box center Y (mm, optional)",
+        "label": "Head box center Y (mm)",
         "name": "line_edit_head_box_center_y",
-        "tooltip": "Y coordinate in user coordinate system (UCS) or empty for auto"
-    },  {
+        "tooltip": "Y coordinate in user coordinate system (UCS, in mm)"
+    }, {
         "type": "line_edit",
         "var": "head_box_center_z",
-        "label": "Head box center Z (mm, optional)",
+        "label": "Head box center Z (mm)",
         "name": "line_edit_head_box_center_z",
-        "tooltip": "Z coordinate in user coordinate system (UCS) or empty for auto"
-    },  {
+        "tooltip": "Z coordinate in user coordinate system (UCS, in mm)"
+    }, {
         "type": "checkbox",
         "var": "operator",
         "label": "Operator Screen",
         "name": "checkbox_operator",
         "tooltip": "Enable operator screen"
-    },  {
+    }, {
         "type": "line_edit",
         "var": "screen_name",
         "label": "Screen name",
         "name": "line_edit_screen_name",
         "tooltip": "String value"
-    },  {
+    }, {
         "type": "line_edit",
         "var": "screen_nr",
         "label": "Screen number",
         "name": "line_edit_screen_nr",
         "tooltip": "Integer value"
-    },  {
+    }, {
         "type": "line_edit",
         "var": "xres",
         "label": "Resolution X (pxs)",
         "name": "line_edit_xres",
         "tooltip": "Value in pxs"
-    },  {
+    }, {
         "type": "line_edit",
         "var": "yres",
         "label": "Resolution Y (pxs)",
         "name": "line_edit_yres",
         "tooltip": "Value in pxs"
-    },  {
+    }, {
         "type": "checkbox",
         "var": "waitblanking",
         "label": "Enable waitBlanking on operator screen",
         "name": "checkbox_waitblanking",
         "tooltip": "Enable waitBlanking on operator screen"
-    },  {
+    }, {
         "type": "text",
         "label": "\n\nTitta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy.\n\n\
 Cite as:\n\nNiehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox for creating PsychToolbox and Psychopy experiments with Tobii eye trackers. Behavior Research Methods. doi: 10.3758/s13428-020-01358-8\n\n\
