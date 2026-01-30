@@ -79,7 +79,7 @@ class TittaInit(Item):
         if self.var.calibration_manual == 'yes':
 
             self.settings.graphics.TARGET_SIZE = self.var.calibration_dot_size
-            self.settings.graphics.TARGET_SIZE_INNER=self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
+            self.settings.graphics.TARGET_SIZE_INNER = self.settings.graphics.TARGET_SIZE / 6  # inner diameter of dot
 
             if isinstance(self.var.calibration_pacing_interval, float):
                 self.settings.PACING_INTERVAL = self.var.calibration_pacing_interval
