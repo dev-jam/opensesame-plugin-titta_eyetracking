@@ -46,6 +46,7 @@ class TittaInit(Item):
         self.var.calibration_auto_pace = "Autoaccept (default)"
         self.var.calibration_movement_duration = 0.5
         self.var.record_eye_images_during_calibration = 'no'
+        self.var.headbox_manual = 'no'
         self.var.head_box_center_x = ''
         self.var.head_box_center_y = ''
         self.var.head_box_center_z = ''
