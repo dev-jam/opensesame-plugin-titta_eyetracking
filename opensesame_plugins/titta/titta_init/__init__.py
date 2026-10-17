@@ -34,8 +34,7 @@ controls = [
             "Tobii X60",
             "Tobii X120",
             "X2-60_Compact",
-            "X2-30_Compact",
-            "Tobii X120"
+            "X2-30_Compact"
         ],
         "name": "combobox_tracker",
         "tooltip": "Select an Eye Tracker"

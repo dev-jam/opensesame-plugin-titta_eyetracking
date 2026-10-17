@@ -26,11 +26,6 @@ This software is distributed under the terms of the GNU General Public License 3
 This plugin contains works of others.
 
 
-## Known bugs
-
-- In dummy mode, when the experiment is finished, OpenSesame will not return to the GUI. The button with the cross and text: 'Forcibly kill the experiment' has to be used to end the session and get back to the GUI. This only happens when in dummy mode and the cause resides somewhere in the 'calibrate' command.
-
-
 ## Notes
 
 - One recording per experiment is working properly. Per trial recording (multiple starts en stops within an experiment) has not yet been tested.

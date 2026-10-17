@@ -34,22 +34,33 @@ class TittaCalibrate(Item):
     def run(self):
         self._show_message('Starting calibration')
         self.set_item_onset()
+        # Titta's dummy mode has no operator screen
+        operator = self.experiment.titta_operator == 'yes' and self.dummy_mode == 'no'
         if self.experiment.titta_bimonocular_calibration == 'yes':
-            if self.experiment.titta_operator == 'yes':
-                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='left',
+            if operator:
+                self._calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='left',
                                               calibration_number='first')
-                self.experiment.tracker.calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='right',
+                self._calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='right',
                                               calibration_number='second')
             else:
-                self.experiment.tracker.calibrate(self.experiment.window, eye='left',
+                self._calibrate(self.experiment.window, eye='left',
                                               calibration_number='first')
-                self.experiment.tracker.calibrate(self.experiment.window, eye='right',
+                self._calibrate(self.experiment.window, eye='right',
                                               calibration_number='second')
         elif self.experiment.titta_bimonocular_calibration == 'no':
-            if self.experiment.titta_operator == 'yes':
-                self.experiment.tracker.calibrate(self.experiment.window, self.experiment.window_op)
+            if operator:
+                self._calibrate(self.experiment.window, self.experiment.window_op)
             else:
-                self.experiment.tracker.calibrate(self.experiment.window)
+                self._calibrate(self.experiment.window)
+
+    def _calibrate(self, *args, **kwargs):
+        # In dummy mode, each calibration starts a thread that simulates gaze;
+        # stop the one of an earlier calibration
+        if self.dummy_mode == 'yes':
+            buffer = getattr(self.experiment.tracker, 'buffer', None)
+            if buffer is not None:
+                buffer._stop_sample_buffer()
+        self.experiment.tracker.calibrate(*args, **kwargs)
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):

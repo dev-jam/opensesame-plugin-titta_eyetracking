@@ -89,7 +89,9 @@ class TittaInit(Item):
             self.settings.TRACKER_ADDRESS = self.var.tracker_address
 
         # Sampling rate
-        if isinstance(self.var.sampling_rate, int):
+        if self.var.sampling_rate_manual == 'yes':
+            if not isinstance(self.var.sampling_rate, int) or self.var.sampling_rate <= 0:
+                raise OSException('Sampling rate needs to be a positive integer')
             self.settings.SAMPLING_RATE = self.var.sampling_rate
             print(f'Using manual sampling rate: {self.settings.SAMPLING_RATE}')
         else:
@@ -115,25 +117,28 @@ class TittaInit(Item):
                     self.var.head_box_center_z
                 ]
                 self._show_message(f'Using head box center: {self.settings.HEAD_BOX_CENTER}')
-            raise OSException('Head box center coordinates must be integers and have values for three dimensions')
+            else:
+                raise OSException('Head box center coordinates must be integers and have values for three dimensions')
 
         # Manual calibration settings
         if self.var.calibration_manual == 'yes':
             # Target size
+            if not isinstance(self.var.calibration_dot_size, (int, float)) or self.var.calibration_dot_size <= 0:
+                raise OSException('Calibration dot size needs to be a positive number')
             self.settings.graphics.TARGET_SIZE = self.var.calibration_dot_size
             self.settings.graphics.TARGET_SIZE_INNER = self.settings.graphics.TARGET_SIZE / 6
 
             # Pacing interval
-            if isinstance(self.var.calibration_pacing_interval, float):
+            if isinstance(self.var.calibration_pacing_interval, (int, float)):
                 self.settings.PACING_INTERVAL = self.var.calibration_pacing_interval
             else:
-                raise OSException('Pacing interval needs to be a decimal/float')
+                raise OSException('Pacing interval needs to be a number')
 
             # Movement duration
-            if isinstance(self.var.calibration_movement_duration, float):
+            if isinstance(self.var.calibration_movement_duration, (int, float)):
                 self.settings.MOVE_TARGET_DURATION = self.var.calibration_movement_duration
             else:
-                raise OSException('Movement duration needs to be a decimal/float')
+                raise OSException('Movement duration needs to be a number')
 
             # Animate calibration
             if self.var.calibration_animate == 'yes':
@@ -197,6 +202,7 @@ class TittaInit(Item):
         if self.var.dummy_mode == 'yes':
             self._show_message('Dummy mode activated')
             self.experiment.tracker.set_dummy_mode()
+            self.experiment.cleanup_functions.append(self._stop_dummy_buffer)
 
         self.experiment.tracker.init()
 
@@ -221,6 +227,13 @@ class TittaInit(Item):
         else:
             self.experiment.titta_operator_waitblanking = True
 
+    def _stop_dummy_buffer(self):
+        # In dummy mode, Titta's calibrate() starts a thread that simulates
+        # gaze with the mouse and never stops it, so the experiment never ends
+        buffer = getattr(self.experiment.tracker, 'buffer', None)
+        if buffer is not None:
+            buffer._stop_sample_buffer()
+
     def _show_message(self, message):
         oslogger.debug(message)
         if self.verbose == 'yes':
@@ -241,25 +254,10 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
         self._need_to_set_enabled = False
 
         # Sampling rate controls
-        self.line_edit_sampling_rate.setEnabled(
-            self.checkbox_sampling_rate_manual.isChecked())
         self.checkbox_sampling_rate_manual.stateChanged.connect(
             self.line_edit_sampling_rate.setEnabled)
 
         # Manual calibration controls
-        self.combobox_calibration_dot.setEnabled(
-            self.checkbox_calibration_manual.isChecked())
-        self.line_edit_calibration_dot_size.setEnabled(
-            self.checkbox_calibration_manual.isChecked())
-        self.line_edit_calibration_movement_duration.setEnabled(
-            self.checkbox_calibration_manual.isChecked())
-        self.checkbox_calibration_animate.setEnabled(
-            self.checkbox_calibration_manual.isChecked())
-        self.combobox_calibration_auto_pace.setEnabled(
-            self.checkbox_calibration_manual.isChecked())
-        self.line_edit_calibration_pacing_interval.setEnabled(
-            self.checkbox_calibration_manual.isChecked())
-
         self.checkbox_calibration_manual.stateChanged.connect(
             self.combobox_calibration_dot.setEnabled)
         self.checkbox_calibration_manual.stateChanged.connect(
@@ -274,10 +272,6 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.line_edit_calibration_pacing_interval.setEnabled)
 
         # Head box controls
-        self.line_edit_head_box_center_x.setEnabled(self.checkbox_headbox_manual.isChecked())
-        self.line_edit_head_box_center_y.setEnabled(self.checkbox_headbox_manual.isChecked())
-        self.line_edit_head_box_center_z.setEnabled(self.checkbox_headbox_manual.isChecked())
-
         self.checkbox_headbox_manual.stateChanged.connect(
             self.line_edit_head_box_center_x.setEnabled)
         self.checkbox_headbox_manual.stateChanged.connect(
@@ -286,12 +280,6 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.line_edit_head_box_center_z.setEnabled)
 
         # Operator screen controls
-        self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())
-        self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
-        self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
-        self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
-        self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())
-
         self.checkbox_operator.stateChanged.connect(
             self.line_edit_xres.setEnabled)
         self.checkbox_operator.stateChanged.connect(
@@ -302,3 +290,33 @@ class QtTittaInit(TittaInit, QtAutoPlugin):
             self.line_edit_screen_name.setEnabled)
         self.checkbox_operator.stateChanged.connect(
             self.checkbox_waitblanking.setEnabled)
+
+    def edit_widget(self):
+        super().edit_widget()
+        # auto_edit_widget() enables the checkboxes and comboboxes again on
+        # each refresh, so set the state here
+        self.line_edit_sampling_rate.setEnabled(
+            self.checkbox_sampling_rate_manual.isChecked())
+
+        self.combobox_calibration_dot.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.line_edit_calibration_dot_size.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.line_edit_calibration_movement_duration.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.checkbox_calibration_animate.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.combobox_calibration_auto_pace.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+        self.line_edit_calibration_pacing_interval.setEnabled(
+            self.checkbox_calibration_manual.isChecked())
+
+        self.line_edit_head_box_center_x.setEnabled(self.checkbox_headbox_manual.isChecked())
+        self.line_edit_head_box_center_y.setEnabled(self.checkbox_headbox_manual.isChecked())
+        self.line_edit_head_box_center_z.setEnabled(self.checkbox_headbox_manual.isChecked())
+
+        self.line_edit_xres.setEnabled(self.checkbox_operator.isChecked())
+        self.line_edit_yres.setEnabled(self.checkbox_operator.isChecked())
+        self.line_edit_screen_nr.setEnabled(self.checkbox_operator.isChecked())
+        self.line_edit_screen_name.setEnabled(self.checkbox_operator.isChecked())
+        self.checkbox_waitblanking.setEnabled(self.checkbox_operator.isChecked())

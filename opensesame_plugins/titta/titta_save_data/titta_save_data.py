@@ -23,6 +23,8 @@ from libopensesame.item import Item
 from libqtopensesame.items.qtautoplugin import QtAutoPlugin
 from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
+import os
+from pathlib import Path
 import pandas as pd
 
 
@@ -39,19 +41,30 @@ class TittaSaveData(Item):
     def run(self):
         self._check_stop()
         self.set_item_onset()
-        self.experiment.tracker.save_data()
+        # Titta adds _1, _2, ... to the file name when a .h5 file with that
+        # name (the part before the first dot) exists; choose the free name
+        # the same way here, to export the data from the right file
+        folder, base = os.path.split(self.experiment.titta_file_name)
+        taken = {path.name.split('.')[0] for path in Path(folder or '.').glob('*.h5')}
+        name = base
+        i = 1
+        while name in taken:
+            name = f'{base}_{i}'
+            i += 1
+        file_name = os.path.join(folder, name)
+        self.experiment.tracker.save_data(filename=name)
 
         if self.tsv_export == 'yes' and self.experiment.titta_dummy_mode == 'no':
             items_to_process = {
-                'gaze': f'{self.experiment.titta_file_name}_gaze.tsv',
-                'msg': f'{self.experiment.titta_file_name}_msg.tsv',
-                'external_signal': f'{self.experiment.titta_file_name}_external_signal.tsv',
-                'calibration_history': f'{self.experiment.titta_file_name}_calibration_history.tsv'
+                'gaze': f'{file_name}_gaze.tsv',
+                'msg': f'{file_name}_msg.tsv',
+                'external_signal': f'{file_name}_external_signal.tsv',
+                'calibration_history': f'{file_name}_calibration_history.tsv'
             }
 
             loaded_dfs = {}
 
-            with pd.HDFStore(f'{self.experiment.titta_file_name}.h5', 'r') as store:
+            with pd.HDFStore(f'{file_name}.h5', 'r') as store:
                 for item_name, output_file in items_to_process.items():
                     if f'/{item_name}' in store.keys():
                         loaded_dfs[item_name] = pd.read_hdf(store, item_name)
@@ -67,7 +80,7 @@ class TittaSaveData(Item):
                 df_merged = pd.concat(merge_candidates)
                 df_merged.sort_values("system_time_stamp", axis=0, ascending=True,
                                      inplace=True, na_position='last')
-                df_merged.to_csv(f'{self.experiment.titta_file_name}_data_merged.tsv', sep='\t')
+                df_merged.to_csv(f'{file_name}_data_merged.tsv', sep='\t')
                 self._show_message("Saved merged data")
             else:
                 self._show_message("Warning: No dataframes available to merge")

@@ -36,7 +36,7 @@ class TittaSendMessage(Item):
 
     def run(self):
         self.set_item_onset()
-        self.experiment.tracker.send_message(self.var.message)
+        self.experiment.tracker.send_message(str(self.var.message))
 
     def _check_init(self):
         if hasattr(self.experiment, "titta_dummy_mode"):

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- fix dummy mode: the experiment did not end after a calibration
+- fix manual head box center: always gave an error
+- fix manual sampling rate: was also used with *Manual Sampling Rate* unchecked, and an invalid value was ignored
+- fix calibration pacing interval and movement duration: whole numbers gave an error, also the default pacing interval 1.0
+- check the calibration dot size
+- fix bimonocular calibration with operator screen in dummy mode
+- fix tsv export: used an older data file when the data file of the subject already existed
+- fix plot gaze: error with an empty response key, and spaces around response keys were not removed
+- fix plot gaze: the list of response keys grew on every keyboard check
+- fix send message: a numeric message gave an error in dummy mode; messages are now always sent as text
+- fix init item: controls were enabled while their checkbox was unchecked
+- remove duplicate Tobii X120 from the eye tracker list
+
 ## [6.1.1] - 2026-09-01
 
 - fixed missing variable

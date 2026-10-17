@@ -42,11 +42,12 @@ class TittaPlotGaze(Item):
         self._check_init()
         self._init_var()
 
+        self._allowed_responses = None
         if self.var.response_key != '':
             self._allowed_responses = []
             for r in safe_decode(self.var.response_key).split(';'):
                 if r.strip() != '':
-                    self._allowed_responses.append(r)
+                    self._allowed_responses.append(r.strip())
             if not self._allowed_responses:
                 self._allowed_responses = None
             self._show_message(f"Response key(s) set to {self._allowed_responses}")
@@ -69,7 +70,6 @@ class TittaPlotGaze(Item):
         from psychopy import visual
 
         self.kb = Keyboard(self.experiment, timeout=1)
-        self.kb.keylist = self._allowed_responses
         self.kb.flush()
 
         rel = self.experiment.var.width/self.experiment.var.height
@@ -172,7 +172,9 @@ class TittaPlotGaze(Item):
 
                 self._flip_windows()
 
-            key, time = self.kb.get_key()
+            # Pass the key list on each call: get_key() adds 'escape' to a
+            # stored key list every time it is called
+            key, time = self.kb.get_key(keylist=self._allowed_responses)
 
         self._set_response_time()
         response_time = round(time - self.start_time, 1)
