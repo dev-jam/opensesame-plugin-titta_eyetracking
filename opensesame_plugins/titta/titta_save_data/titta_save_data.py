@@ -18,29 +18,43 @@ along with OpenSesame.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
-from libopensesame.py3compat import *
-from libopensesame.item import Item
-from libqtopensesame.items.qtautoplugin import QtAutoPlugin
-from libopensesame.exceptions import OSException
-from libopensesame.oslogging import oslogger
 import os
 from pathlib import Path
+
 import pandas as pd
+from libopensesame.exceptions import OSException
+from libopensesame.oslogging import oslogger
+
+from ..titta_item import TittaItem
+
+# Data in the HDF5 file that is exported to tsv files
+TSV_EXPORT = ('gaze', 'msg', 'external_signal', 'calibration_history')
+# Data that is also merged into one tsv file, sorted by time
+TSV_MERGE = ('gaze', 'msg', 'external_signal')
 
 
-class TittaSaveData(Item):
+class TittaSaveData(TittaItem):
 
     def reset(self):
         self.var.tsv_export = 'no'
 
     def prepare(self):
         super().prepare()
-        self._init_var()
         self._check_init()
+        self._init_var()
 
     def run(self):
         self._check_stop()
         self.set_item_onset()
+        file_name = self._free_file_name()
+        self.experiment.tracker.save_data(filename=os.path.basename(file_name))
+        if self.tsv_export and not self.dummy_mode:
+            self._export_tsv(file_name)
+
+    def _init_var(self):
+        self.tsv_export = self.var.tsv_export == 'yes'
+
+    def _free_file_name(self):
         # Titta adds _1, _2, ... to the file name when a .h5 file with that
         # name (the part before the first dot) exists; choose the free name
         # the same way here, to export the data from the right file
@@ -51,67 +65,30 @@ class TittaSaveData(Item):
         while name in taken:
             name = f'{base}_{i}'
             i += 1
-        file_name = os.path.join(folder, name)
-        self.experiment.tracker.save_data(filename=name)
+        return os.path.join(folder, name)
 
-        if self.tsv_export == 'yes' and self.experiment.titta_dummy_mode == 'no':
-            items_to_process = {
-                'gaze': f'{file_name}_gaze.tsv',
-                'msg': f'{file_name}_msg.tsv',
-                'external_signal': f'{file_name}_external_signal.tsv',
-                'calibration_history': f'{file_name}_calibration_history.tsv'
-            }
+    def _export_tsv(self, file_name):
+        data = {}
+        with pd.HDFStore(f'{file_name}.h5', 'r') as store:
+            for key in TSV_EXPORT:
+                if f'/{key}' not in store.keys():
+                    oslogger.warning(f"'{key}' not found in HDF5 file")
+                    continue
+                data[key] = pd.read_hdf(store, key)
+                output_file = f'{file_name}_{key}.tsv'
+                data[key].to_csv(output_file, sep='\t')
+                self._show_message(f'Saved {key} to {output_file}')
 
-            loaded_dfs = {}
-
-            with pd.HDFStore(f'{file_name}.h5', 'r') as store:
-                for item_name, output_file in items_to_process.items():
-                    if f'/{item_name}' in store.keys():
-                        loaded_dfs[item_name] = pd.read_hdf(store, item_name)
-                        loaded_dfs[item_name].to_csv(output_file, sep='\t')
-                        self._show_message(f"Saved {item_name} to {output_file}")
-                    else:
-                        self._show_message(f"Warning: '{item_name}' not found in HDF5 file")
-
-            merge_candidates = [loaded_dfs[key] for key in ['gaze', 'msg', 'external_signal']
-                               if key in loaded_dfs]
-
-            if merge_candidates:
-                df_merged = pd.concat(merge_candidates)
-                df_merged.sort_values("system_time_stamp", axis=0, ascending=True,
-                                     inplace=True, na_position='last')
-                df_merged.to_csv(f'{file_name}_data_merged.tsv', sep='\t')
-                self._show_message("Saved merged data")
-            else:
-                self._show_message("Warning: No dataframes available to merge")
-
-    def _check_init(self):
-        if hasattr(self.experiment, "titta_dummy_mode"):
-            self.dummy_mode = self.experiment.titta_dummy_mode
-            self.verbose = self.experiment.titta_verbose
-        else:
-            raise OSException('You should have one instance of `Titta Init` at the start of your experiment')
+        merge = [data[key] for key in TSV_MERGE if key in data]
+        if not merge:
+            oslogger.warning('No data available to merge')
+            return
+        merged = pd.concat(merge).sort_values('system_time_stamp', na_position='last')
+        merged.to_csv(f'{file_name}_data_merged.tsv', sep='\t')
+        self._show_message('Saved merged data')
 
     def _check_stop(self):
-        if not hasattr(self.experiment, "titta_stop_recording"):
-            raise OSException(
-                    '`Titta Stop Recording` item is missing')
-        elif self.experiment.titta_recording:
-                raise OSException(
-                        'Titta still recording, you first have to stop recording before saving data')
-
-    def _init_var(self):
-        self.tsv_export = self.var.tsv_export
-
-    def _show_message(self, message):
-        oslogger.debug(message)
-        if self.verbose == 'yes':
-            print(message)
-
-
-class QtTittaSaveData(TittaSaveData, QtAutoPlugin):
-
-    def __init__(self, name, experiment, script=None):
-        TittaSaveData.__init__(self, name, experiment, script)
-        QtAutoPlugin.__init__(self, __file__)
-
+        if not hasattr(self.experiment, 'titta_stop_recording'):
+            raise OSException('`Titta Stop Recording` item is missing')
+        if self.experiment.titta_recording:
+            raise OSException('Titta still recording, you first have to stop recording before saving data')

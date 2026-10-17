@@ -18,65 +18,30 @@ along with OpenSesame.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
-from libopensesame.py3compat import *
-from libopensesame.item import Item
-from libqtopensesame.items.qtautoplugin import QtAutoPlugin
-from libopensesame.exceptions import OSException
-from libopensesame.oslogging import oslogger
+from ..titta_item import TittaItem
 
 
-class TittaCalibrate(Item):
+class TittaCalibrate(TittaItem):
 
     def prepare(self):
         super().prepare()
         self._check_init()
+        self.bimonocular_calibration = self.experiment.titta_bimonocular_calibration == 'yes'
+        # Titta's dummy mode has no operator screen
+        self.operator = self.experiment.titta_operator == 'yes' and not self.dummy_mode
 
     def run(self):
         self._show_message('Starting calibration')
         self.set_item_onset()
-        # Titta's dummy mode has no operator screen
-        operator = self.experiment.titta_operator == 'yes' and self.dummy_mode == 'no'
-        if self.experiment.titta_bimonocular_calibration == 'yes':
-            if operator:
-                self._calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='left',
-                                              calibration_number='first')
-                self._calibrate(self.experiment.window, win_operator=self.experiment.window_op, eye='right',
-                                              calibration_number='second')
-            else:
-                self._calibrate(self.experiment.window, eye='left',
-                                              calibration_number='first')
-                self._calibrate(self.experiment.window, eye='right',
-                                              calibration_number='second')
-        elif self.experiment.titta_bimonocular_calibration == 'no':
-            if operator:
-                self._calibrate(self.experiment.window, self.experiment.window_op)
-            else:
-                self._calibrate(self.experiment.window)
-
-    def _calibrate(self, *args, **kwargs):
-        # In dummy mode, each calibration starts a thread that simulates gaze;
-        # stop the one of an earlier calibration
-        if self.dummy_mode == 'yes':
-            buffer = getattr(self.experiment.tracker, 'buffer', None)
-            if buffer is not None:
-                buffer._stop_sample_buffer()
-        self.experiment.tracker.calibrate(*args, **kwargs)
-
-    def _check_init(self):
-        if hasattr(self.experiment, "titta_dummy_mode"):
-            self.dummy_mode = self.experiment.titta_dummy_mode
-            self.verbose = self.experiment.titta_verbose
+        kwargs = {'win_operator': self.experiment.window_op} if self.operator else {}
+        if self.bimonocular_calibration:
+            self._calibrate(eye='left', calibration_number='first', **kwargs)
+            self._calibrate(eye='right', calibration_number='second', **kwargs)
         else:
-            raise OSException('You should have one instance of `titta_init` at the start of your experiment')
+            self._calibrate(**kwargs)
 
-    def _show_message(self, message):
-        oslogger.debug(message)
-        if self.verbose == 'yes':
-            print(message)
-
-
-class qtTittaCalibrate(TittaCalibrate, QtAutoPlugin):
-
-    def __init__(self, name, experiment, script=None):
-        TittaCalibrate.__init__(self, name, experiment, script)
-        QtAutoPlugin.__init__(self, __file__)
+    def _calibrate(self, **kwargs):
+        if self.dummy_mode:
+            # Each calibration starts a new thread that simulates gaze
+            self._stop_dummy_buffer()
+        self.experiment.tracker.calibrate(self.experiment.window, **kwargs)

@@ -136,7 +136,7 @@ controls = [
             "Autoaccept (default)"
         ],
         "name": "combobox_calibration_auto_pace",
-        "tooltip": "accept all points with space bar, semi autoaccept (accept only first point with space bar, default), or autoaccept)"
+        "tooltip": "Accept all points with the space bar, semi autoaccept (accept only the first point with the space bar), or autoaccept"
     }, {
         "type": "line_edit",
         "var": "calibration_movement_duration",

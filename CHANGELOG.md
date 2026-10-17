@@ -19,6 +19,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fix send message: a numeric message gave an error in dummy mode; messages are now always sent as text
 - fix init item: controls were enabled while their checkbox was unchecked
 - remove duplicate Tobii X120 from the eye tracker list
+- code cleanup: shared base class for the items, booleans for checkbox settings, no py3compat, GUI classes only where needed
+- connect to the eye tracker and open the operator screen in the run phase; the data file uses the subject number at that moment
+- plot gaze: *Force disabling of waitBlanking* is only enabled when *Plot gaze on operator display* is checked
+- pacing interval and dot size need to be positive, movement duration 0 or more (0: the target jumps); an unknown calibration dot or auto pace value gives an error
+- start/stop recording: a setting other than yes or no counts as no (was an error)
+- sampling rate message only in verbose mode; tsv export warnings always in the log
+- show the reason when titta can't be imported
+- fix tooltips
 
 ## [6.1.1] - 2026-09-01
 

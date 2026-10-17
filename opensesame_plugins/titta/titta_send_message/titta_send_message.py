@@ -18,14 +18,10 @@ along with OpenSesame.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
-from libopensesame.py3compat import *
-from libopensesame.item import Item
-from libqtopensesame.items.qtautoplugin import QtAutoPlugin
-from libopensesame.exceptions import OSException
-from libopensesame.oslogging import oslogger
+from ..titta_item import TittaItem
 
 
-class TittaSendMessage(Item):
+class TittaSendMessage(TittaItem):
 
     def reset(self):
         self.var.message = 'onset_stimulusname'
@@ -37,22 +33,3 @@ class TittaSendMessage(Item):
     def run(self):
         self.set_item_onset()
         self.experiment.tracker.send_message(str(self.var.message))
-
-    def _check_init(self):
-        if hasattr(self.experiment, "titta_dummy_mode"):
-            self.dummy_mode = self.experiment.titta_dummy_mode
-            self.verbose = self.experiment.titta_verbose
-        else:
-            raise OSException('You should have one instance of `titta_init` at the start of your experiment')
-
-    def _show_message(self, message):
-        oslogger.debug(message)
-        if self.verbose == 'yes':
-            print(message)
-
-
-class QtTittaSendMessage(TittaSendMessage, QtAutoPlugin):
-
-    def __init__(self, name, experiment, script=None):
-        TittaSendMessage.__init__(self, name, experiment, script)
-        QtAutoPlugin.__init__(self, __file__)

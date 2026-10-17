@@ -9,7 +9,7 @@ controls = [
         "var": "stimulus_display",
         "label": "Plot gaze on stimulus display",
         "name": "checkbox_stimulus_display",
-        "tooltip": "Plot gaze on display display"
+        "tooltip": "Plot gaze on stimulus display"
     },  {
         "type": "checkbox",
         "var": "operator_display",
