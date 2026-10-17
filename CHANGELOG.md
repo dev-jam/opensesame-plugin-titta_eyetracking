@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - show the reason when titta can't be imported
 - fix tooltips
 - the version label of the items is read from the installed package
+- declare psychopy as dependency (imported directly); drop tittapy (titta installs it)
 
 ## [6.1.1] - 2026-09-01
 
