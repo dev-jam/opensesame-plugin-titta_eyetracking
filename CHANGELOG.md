@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - sampling rate message only in verbose mode; tsv export warnings always in the log
 - show the reason when titta can't be imported
 - fix tooltips
+- the version label of the items is read from the installed package
 
 ## [6.1.1] - 2026-09-01
 

@@ -1,5 +1,7 @@
 """Titta item to plot gaze"""
 
+from .. import __version__
+
 # The category determines the group for the plugin in the item toolbar
 category = "Titta Eye Tracking"
 # Defines the GUI controls
@@ -45,7 +47,7 @@ controls = [
         "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
-        "label": "<small>Titta Eye Tracking version 6.1.1</small>"
+        "label": f"<small>Titta Eye Tracking version {__version__}</small>"
     }
 ]
 
