@@ -22,7 +22,6 @@ import os
 from pathlib import Path
 
 import pandas as pd
-from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
 
 from ..titta_item import TittaItem
@@ -44,7 +43,7 @@ class TittaSaveData(TittaItem):
         self._init_var()
 
     def run(self):
-        self._check_stop()
+        self._check_not_recording('saving data')
         self.set_item_onset()
         file_name = self._free_file_name()
         with self._titta_errors('save the data'):
@@ -87,9 +86,3 @@ class TittaSaveData(TittaItem):
         merged = pd.concat(merge).sort_values('system_time_stamp', na_position='last')
         merged.to_csv(f'{file_name}_data_merged.tsv', sep='\t')
         self._show_message('Saved merged data')
-
-    def _check_stop(self):
-        if not hasattr(self.experiment, 'titta_stop_recording'):
-            raise OSException('`Titta Stop Recording` item is missing')
-        if self.experiment.titta_recording:
-            raise OSException('Titta still recording, you first have to stop recording before saving data')

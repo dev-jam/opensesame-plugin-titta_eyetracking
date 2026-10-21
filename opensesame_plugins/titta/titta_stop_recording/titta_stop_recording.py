@@ -20,7 +20,7 @@ __license__ = "GPLv3"
 
 from libopensesame.exceptions import OSException
 
-from ..titta_item import TittaItem
+from ..titta_item import STREAMS, TittaItem
 
 
 class TittaStopRecording(TittaItem):
@@ -43,23 +43,12 @@ class TittaStopRecording(TittaItem):
         self._check_start()
         self.set_item_onset()
         with self._titta_errors('stop recording'):
-            self.experiment.tracker.stop_recording(
-                gaze=self.stop_gaze,
-                time_sync=self.stop_time_sync,
-                eye_image=self.stop_eye_image,
-                notifications=self.stop_notifications,
-                external_signal=self.stop_external_signal,
-                positioning=self.stop_positioning
-            )
+            self.experiment.tracker.stop_recording(**self.streams)
         self.experiment.titta_recording = False
 
     def _init_var(self):
-        self.stop_gaze = self.var.stop_gaze == 'yes'
-        self.stop_time_sync = self.var.stop_time_sync == 'yes'
-        self.stop_eye_image = self.var.stop_eye_image == 'yes'
-        self.stop_notifications = self.var.stop_notifications == 'yes'
-        self.stop_external_signal = self.var.stop_external_signal == 'yes'
-        self.stop_positioning = self.var.stop_positioning == 'yes'
+        self.streams = {stream: self.var.get(f'stop_{stream}') == 'yes'
+                        for stream in STREAMS}
 
     def _check_start(self):
         if not hasattr(self.experiment, 'titta_start_recording'):

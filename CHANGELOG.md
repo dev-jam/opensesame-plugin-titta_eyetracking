@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - GUI: labels say that response keys are separated by ;, the timeout can be infinite and the pacing interval must be at least 0.8 s; typo in the note of all items
 - readme: requirements, where to report plugin bugs, typo
 - fixed: plot gaze stopped with an unexpected error (IndexError) when the gaze buffer of a real eye tracker had no sample yet (before or right after starting the recording); only the background is drawn until a sample arrives
+- code cleanup: one stream list for start/stop recording, shared recording check
 
 ## [7.0.1] - 2026-10-18
 
