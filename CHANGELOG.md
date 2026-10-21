@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [7.0.2] - 2026-10-21
 
 - fixed: require titta 2.2.2 or newer: titta 2.1.0 doesn't work with TittaPy 2 (No module named 'TittaPy'), and with titta 2.2.0 and 2.2.1 *Block until recording has started* (on by default) fails on a real eye tracker
 - fixed: errors reported by Titta (e.g. eye tracker not found, unsupported sampling rate or tracking mode, monocular calibration on a tracker that can't do it) were shown as "An unexpected error occurred"; they now show Titta's message
@@ -223,7 +223,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.1...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.2...HEAD
+[7.0.2]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.1...7.0.2
 [7.0.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/6.1.1...7.0.1
 [6.1.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/6.1.0...6.1.1
 [6.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/6.0.0...6.1.0
