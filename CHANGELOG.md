@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixed: plot gaze kept a CPU core busy while waiting for a key when no gaze is drawn (no display selected, or dummy mode without *Simulate gaze*)
 - GUI: labels say that response keys are separated by ;, the timeout can be infinite and the pacing interval must be at least 0.8 s; typo in the note of all items
 - readme: requirements, where to report plugin bugs, typo
+- fixed: plot gaze stopped with an unexpected error (IndexError) when the gaze buffer of a real eye tracker had no sample yet (before or right after starting the recording); only the background is drawn until a sample arrives
 
 ## [7.0.1] - 2026-10-18
 

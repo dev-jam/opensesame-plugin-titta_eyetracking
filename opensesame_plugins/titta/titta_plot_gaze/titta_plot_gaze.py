@@ -85,10 +85,10 @@ class TittaPlotGaze(TittaItem):
                     self.clock.time() - start_time >= self.timeout:
                 break
             if plot:
-                left, right = self._gaze(step)
+                gaze = self._gaze(step)
                 step += 1
                 for image, dot in plots:
-                    self._draw_gaze(image, dot, left, right)
+                    self._draw_gaze(image, dot, gaze)
                 # The operator display first, as before
                 for window in reversed(displays):
                     window.flip()
@@ -130,9 +130,13 @@ class TittaPlotGaze(TittaItem):
             raise OSException('Timeout can only be "infinite" or a positive integer')
 
     def _gaze(self, step):
-        """Returns the left and right gaze position in norm units."""
+        """Returns the left and right gaze position in norm units, or None
+        when the buffer has no sample yet.
+        """
         if not self.dummy_mode:
             sample = self.experiment.tracker.buffer.peek_N('gaze', 1)
+            if len(sample['system_time_stamp']) == 0:
+                return None
             return tuple(
                 (sample[f'{eye}_gaze_point_on_display_area_x'][0] * 2 - 1,
                  1 - sample[f'{eye}_gaze_point_on_display_area_y'][0] * 2)
@@ -143,9 +147,11 @@ class TittaPlotGaze(TittaItem):
         return (SIMULATION_LEFT_X + dx, dy), (SIMULATION_RIGHT_X + dx, dy)
 
     @staticmethod
-    def _draw_gaze(image, dot, left, right):
+    def _draw_gaze(image, dot, gaze):
         image.draw()
-        for color, pos in (('red', left), ('blue', right)):
+        if gaze is None:
+            return
+        for color, pos in zip(('red', 'blue'), gaze):
             dot.lineColor = color
             dot.fillColor = color
             dot.pos = pos
