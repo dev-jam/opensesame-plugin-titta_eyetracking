@@ -42,14 +42,15 @@ class TittaStopRecording(TittaItem):
     def run(self):
         self._check_start()
         self.set_item_onset()
-        self.experiment.tracker.stop_recording(
-            gaze=self.stop_gaze,
-            time_sync=self.stop_time_sync,
-            eye_image=self.stop_eye_image,
-            notifications=self.stop_notifications,
-            external_signal=self.stop_external_signal,
-            positioning=self.stop_positioning
-        )
+        with self._titta_errors('stop recording'):
+            self.experiment.tracker.stop_recording(
+                gaze=self.stop_gaze,
+                time_sync=self.stop_time_sync,
+                eye_image=self.stop_eye_image,
+                notifications=self.stop_notifications,
+                external_signal=self.stop_external_signal,
+                positioning=self.stop_positioning
+            )
         self.experiment.titta_recording = False
 
     def _init_var(self):

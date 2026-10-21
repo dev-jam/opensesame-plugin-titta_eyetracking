@@ -90,12 +90,13 @@ class TittaInit(TittaItem):
 
         self._show_message('Initialising Eye Tracker')
         self.set_item_onset()
-        self.experiment.tracker = Titta.Connect(self.settings)
-        if self.dummy_mode:
-            self._show_message('Dummy mode activated')
-            self.experiment.tracker.set_dummy_mode()
-            self.experiment.cleanup_functions.append(self._stop_dummy_buffer)
-        self.experiment.tracker.init()
+        with self._titta_errors('initialise the eye tracker'):
+            self.experiment.tracker = Titta.Connect(self.settings)
+            if self.dummy_mode:
+                self._show_message('Dummy mode activated')
+                self.experiment.tracker.set_dummy_mode()
+                self.experiment.cleanup_functions.append(self._stop_dummy_buffer)
+            self.experiment.tracker.init()
 
     def _init_var(self):
         self.dummy_mode = self.var.dummy_mode == 'yes'
@@ -121,7 +122,8 @@ class TittaInit(TittaItem):
             raise OSException(f'Could not import titta: {e}') from e
 
         # Default settings for the selected tracker
-        settings = Titta.get_defaults(self.var.tracker)
+        with self._titta_errors(f'find the settings of {self.var.tracker}'):
+            settings = Titta.get_defaults(self.var.tracker)
         settings.N_CAL_TARGETS = self.var.ncalibration_targets
         if self.var.tracker_address:
             settings.TRACKER_ADDRESS = self.var.tracker_address

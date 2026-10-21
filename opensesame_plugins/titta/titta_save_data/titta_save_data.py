@@ -47,7 +47,8 @@ class TittaSaveData(TittaItem):
         self._check_stop()
         self.set_item_onset()
         file_name = self._free_file_name()
-        self.experiment.tracker.save_data(filename=os.path.basename(file_name))
+        with self._titta_errors('save the data'):
+            self.experiment.tracker.save_data(filename=os.path.basename(file_name))
         if self.tsv_export and not self.dummy_mode:
             self._export_tsv(file_name)
 

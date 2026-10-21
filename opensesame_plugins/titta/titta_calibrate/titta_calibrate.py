@@ -44,4 +44,5 @@ class TittaCalibrate(TittaItem):
         if self.dummy_mode:
             # Each calibration starts a new thread that simulates gaze
             self._stop_dummy_buffer()
-        self.experiment.tracker.calibrate(self.experiment.window, **kwargs)
+        with self._titta_errors('calibrate'):
+            self.experiment.tracker.calibrate(self.experiment.window, **kwargs)

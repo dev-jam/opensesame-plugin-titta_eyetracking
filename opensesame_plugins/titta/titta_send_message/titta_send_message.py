@@ -32,4 +32,5 @@ class TittaSendMessage(TittaItem):
 
     def run(self):
         self.set_item_onset()
-        self.experiment.tracker.send_message(str(self.var.message))
+        with self._titta_errors('send the message'):
+            self.experiment.tracker.send_message(str(self.var.message))

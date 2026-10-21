@@ -18,6 +18,8 @@ along with OpenSesame.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
+from contextlib import contextmanager
+
 from libopensesame.item import Item
 from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
@@ -41,6 +43,18 @@ class TittaItem(Item):
         buffer = getattr(self.experiment.tracker, 'buffer', None)
         if buffer is not None:
             buffer._stop_sample_buffer()
+
+    @contextmanager
+    def _titta_errors(self, action):
+        # Titta raises plain exceptions (e.g. eye tracker not found); the
+        # experiment would only show "An unexpected error occurred"
+        try:
+            yield
+        except OSException:
+            raise
+        except Exception as e:
+            message = ' '.join(str(e).split()) or type(e).__name__
+            raise OSException(f'Titta could not {action}: {message}') from e
 
     def _show_message(self, message):
         oslogger.debug(message)

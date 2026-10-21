@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - fixed: require titta 2.2.2 or newer: titta 2.1.0 doesn't work with TittaPy 2 (No module named 'TittaPy'), and with titta 2.2.0 and 2.2.1 *Block until recording has started* (on by default) fails on a real eye tracker
+- fixed: errors reported by Titta (e.g. eye tracker not found, unsupported sampling rate or tracking mode, monocular calibration on a tracker that can't do it) were shown as "An unexpected error occurred"; they now show Titta's message
 
 ## [7.0.1] - 2026-10-18
 
