@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixed: a calibration pacing interval below 0.8 s and an invalid number of calibration targets were accepted in dummy mode (Titta only checks them on a real eye tracker); they are now errors in the prepare phase, also in dummy mode. 3 calibration targets (accepted by Titta) is allowed
 - fixed: invalid operator screen settings (screen number, resolution) gave an unclear error, or hung the experiment (a resolution of 0); they are now checked in the prepare phase
 - head box center coordinates may have decimals (were whole numbers only)
+- fixed: plot gaze kept a CPU core busy while waiting for a key when no gaze is drawn (no display selected, or dummy mode without *Simulate gaze*)
 
 ## [7.0.1] - 2026-10-18
 

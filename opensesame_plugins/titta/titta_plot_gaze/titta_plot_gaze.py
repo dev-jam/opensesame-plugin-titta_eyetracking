@@ -19,6 +19,7 @@ __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
 import math
+import time
 
 from libopensesame.exceptions import OSException
 from openexp.keyboard import Keyboard
@@ -32,6 +33,7 @@ SIMULATION_RADIUS = 0.05
 SIMULATION_LEFT_X = -0.02
 SIMULATION_RIGHT_X = 0.12
 SIMULATION_STEPS = 60  # samples per circle
+POLL_INTERVAL = 0.001  # s, between keyboard checks when nothing is drawn
 
 
 class TittaPlotGaze(TittaItem):
@@ -52,7 +54,8 @@ class TittaPlotGaze(TittaItem):
     def run(self):
         from psychopy import visual
 
-        self.kb = Keyboard(self.experiment, timeout=1)
+        # get_key() with a timeout is a busy loop: check once per call
+        self.kb = Keyboard(self.experiment, timeout=0)
         self.kb.flush()
 
         # The current stimulus display is the background of the gaze plot
@@ -92,6 +95,9 @@ class TittaPlotGaze(TittaItem):
             # Pass the key list on each call: get_key() adds 'escape' to a
             # stored key list every time it is called
             key, timestamp = self.kb.get_key(keylist=self.response_keys)
+            if key is None and not plot:
+                # Nothing to draw (flip() would pace the loop)
+                time.sleep(POLL_INTERVAL)
 
         self._set_response_time()
         self._show_message(f"Detected press on button: '{key}'")
