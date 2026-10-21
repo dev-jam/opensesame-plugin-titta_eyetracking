@@ -50,7 +50,7 @@ controls = [
         "tooltip": "Block until recording has started"
     },  {
         "type": "text",
-        "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
+        "label": "<small><b>Note:</b> A Titta Init item at the beginning of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
         "label": f"<small>Titta Eye Tracking version {__version__}</small>"

@@ -33,18 +33,18 @@ controls = [
     },  {
         "type": "line_edit",
         "var": "response_key",
-        "label": "Response key",
+        "label": "Response keys (separated by ;)",
         "name": "line_edit_response_key",
         "tooltip": "Expecting a semicolon-separated list of button characters, e.g., a;b;c"
     }, {
         "type": "line_edit",
         "var": "timeout",
-        "label": "Timeout (ms)",
+        "label": "Timeout (ms or infinite)",
         "name": "line_edit_timeout",
         "tooltip": "Expecting a value in milliseconds or 'infinite'"
     }, {
         "type": "text",
-        "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
+        "label": "<small><b>Note:</b> A Titta Init item at the beginning of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
         "label": f"<small>Titta Eye Tracking version {__version__}</small>"

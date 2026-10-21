@@ -12,9 +12,15 @@ Cite as: Niehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox 
 
 Please mention: Bob Rosbag as creator of this plugin
 
-For questions, bug reports or to check for updates, please visit https://github.com/marcus-nystrom/Titta.
+For questions, bug reports or to check for updates on Titta, please visit https://github.com/marcus-nystrom/Titta. For the plugin, please visit https://github.com/dev-jam/opensesame-plugin-titta_eyetracking.
 
 To minimize the risk of missing samples, the current repository uses TittaPy (pip install TittaPy), a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker.
+
+
+## Requirements
+
+- OpenSesame 4.0 or 4.1 with the PsychoPy backend; the items are hidden for other backends.
+- Titta 2.2.2 or newer (installed with the plugin).
 
 
 ## License
@@ -28,4 +34,4 @@ This plugin contains works of others.
 
 ## Notes
 
-- One recording per experiment is working properly. Per trial recording (multiple starts en stops within an experiment) has not yet been tested.
+- One recording per experiment is working properly. Per trial recording (multiple starts and stops within an experiment) has not yet been tested.

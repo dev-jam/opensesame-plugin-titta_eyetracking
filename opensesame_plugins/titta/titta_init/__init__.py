@@ -125,7 +125,7 @@ controls = [
     }, {
         "type": "line_edit",
         "var": "calibration_pacing_interval",
-        "label": "Calibration pacing interval (s)",
+        "label": "Calibration pacing interval (s, at least 0.8)",
         "name": "line_edit_calibration_pacing_interval",
         "tooltip": "How long to present the target at calibration/validation location until samples are collected (Float value)"
     }, {
@@ -214,7 +214,7 @@ For questions, bug reports or to check for updates on Titta, please visit https:
 To minimize the risk of missing samples, the current repository uses TittaPy (pip install TittaPy), a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker."
     }, {
         "type": "text",
-        "label": "<small><b>Note:</b> Titta Init item at the begin of the experiment is needed for initialization of the Eye Tracker</small>"
+        "label": "<small><b>Note:</b> A Titta Init item at the beginning of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
         "type": "text",
         "label": f"<small>Titta Eye Tracking version {__version__}</small>"
