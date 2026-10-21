@@ -37,6 +37,11 @@ CALIBRATION_DOTS = {
     'Black': 'MyDot3',
 }
 
+# Numbers of calibration targets that Titta accepts
+N_CALIBRATION_TARGETS = (0, 1, 3, 5, 9, 13)
+# Titta checks this only on a real eye tracker, not in dummy mode
+MIN_PACING_INTERVAL = 0.8  # s
+
 # Operator screen
 OPERATOR_SCREEN_WIDTH = 52.7  # cm
 OPERATOR_VIEWING_DISTANCE = 63  # distance from eye to center of screen (cm)
@@ -80,6 +85,8 @@ class TittaInit(TittaItem):
         if self.var.canvas_backend != 'psycho':
             raise OSException('Titta only supports PsychoPy as backend')
         self.settings = self._make_settings()
+        if self.operator:
+            self._check_operator_screen()
 
     def run(self):
         from titta import Titta
@@ -124,7 +131,8 @@ class TittaInit(TittaItem):
         # Default settings for the selected tracker
         with self._titta_errors(f'find the settings of {self.var.tracker}'):
             settings = Titta.get_defaults(self.var.tracker)
-        settings.N_CAL_TARGETS = self.var.ncalibration_targets
+        settings.N_CAL_TARGETS = self._choice(
+            'ncalibration_targets', N_CALIBRATION_TARGETS)
         if self.var.tracker_address:
             settings.TRACKER_ADDRESS = self.var.tracker_address
 
@@ -144,8 +152,8 @@ class TittaInit(TittaItem):
 
         if self.var.headbox_manual == 'yes':
             center = [self.var.get(f'head_box_center_{axis}') for axis in 'xyz']
-            if not all(isinstance(value, int) for value in center):
-                raise OSException('Head box center coordinates must be integers and have values for three dimensions')
+            if not all(isinstance(value, (int, float)) for value in center):
+                raise OSException('Head box center coordinates must be numbers and have values for three dimensions')
             settings.HEAD_BOX_CENTER = center
             self._show_message(f'Using head box center: {settings.HEAD_BOX_CENTER}')
 
@@ -156,6 +164,8 @@ class TittaInit(TittaItem):
             graphics.TARGET_SIZE_INNER = graphics.TARGET_SIZE / 6
             settings.PACING_INTERVAL = self._number(
                 'calibration_pacing_interval', 'Pacing interval')
+            if settings.PACING_INTERVAL < MIN_PACING_INTERVAL:
+                raise OSException(f'Pacing interval needs to be at least {MIN_PACING_INTERVAL} s')
             # 0 is valid: the target jumps to the next position
             settings.MOVE_TARGET_DURATION = self._number(
                 'calibration_movement_duration', 'Movement duration', allow_zero=True)
@@ -199,6 +209,11 @@ class TittaInit(TittaItem):
         )
         self.experiment.cleanup_functions.append(self.experiment.window_op.close)
 
+    def _check_operator_screen(self):
+        self._number('screen_nr', 'Screen number', int, allow_zero=True)
+        self._number('xres', 'Resolution X', int)
+        self._number('yres', 'Resolution Y', int)
+
     def _check_single_init(self):
         if hasattr(self.experiment, 'titta_dummy_mode'):
             raise OSException('You should have only one instance of `titta_init` in your experiment')
@@ -214,7 +229,7 @@ class TittaInit(TittaItem):
     def _choice(self, var, options):
         value = self.var.get(var)
         if value not in options:
-            raise OSException(f'{var} needs to be one of: {", ".join(options)}')
+            raise OSException(f'{var} needs to be one of: {", ".join(str(option) for option in options)}')
         return value
 
 

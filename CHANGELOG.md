@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - fixed: require titta 2.2.2 or newer: titta 2.1.0 doesn't work with TittaPy 2 (No module named 'TittaPy'), and with titta 2.2.0 and 2.2.1 *Block until recording has started* (on by default) fails on a real eye tracker
 - fixed: errors reported by Titta (e.g. eye tracker not found, unsupported sampling rate or tracking mode, monocular calibration on a tracker that can't do it) were shown as "An unexpected error occurred"; they now show Titta's message
+- fixed: a calibration pacing interval below 0.8 s and an invalid number of calibration targets were accepted in dummy mode (Titta only checks them on a real eye tracker); they are now errors in the prepare phase, also in dummy mode. 3 calibration targets (accepted by Titta) is allowed
+- fixed: invalid operator screen settings (screen number, resolution) gave an unclear error, or hung the experiment (a resolution of 0); they are now checked in the prepare phase
+- head box center coordinates may have decimals (were whole numbers only)
 
 ## [7.0.1] - 2026-10-18
 
