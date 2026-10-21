@@ -106,6 +106,9 @@ class TittaInit(TittaItem):
             self.experiment.tracker.init()
 
     def _init_var(self):
+        # Any other value would connect to the eye tracker
+        if self.var.dummy_mode not in ('yes', 'no'):
+            raise OSException(f"Dummy mode needs to be 'yes' or 'no', not '{self.var.dummy_mode}'")
         self.dummy_mode = self.var.dummy_mode == 'yes'
         self.verbose = self.var.verbose == 'yes'
         self.operator = self.var.operator == 'yes'
