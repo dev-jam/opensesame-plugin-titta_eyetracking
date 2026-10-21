@@ -14,7 +14,7 @@ Please mention: Bob Rosbag as creator of this plugin
 
 For questions, bug reports or to check for updates on Titta, please visit https://github.com/marcus-nystrom/Titta. For the plugin, please visit https://github.com/dev-jam/opensesame-plugin-titta_eyetracking.
 
-To minimize the risk of missing samples, the current repository uses TittaPy (pip install TittaPy), a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker.
+To minimize the risk of missing samples, Titta uses TittaPy, a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker. TittaPy is installed together with Titta.
 
 
 ## Requirements
