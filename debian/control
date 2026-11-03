@@ -1,0 +1,29 @@
+Source: opensesame-plugin-titta-eyetracking
+Section: python
+Priority: optional
+Maintainer: Bob Rosbag <debian@bobrosbag.nl>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-python3,
+               pybuild-plugin-pyproject,
+               python3-all,
+               python3-poetry-core,
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+Homepage: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking
+Vcs-Browser: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/tree/debian/latest
+Vcs-Git: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking.git -b debian/latest
+
+Package: python3-opensesame-plugin-titta-eyetracking
+Architecture: all
+# OpenSesame (and PsychoPy) are not in Debian yet: add them to Depends
+# when they are.
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         python3-pandas,
+         python3-tables,
+         python3-titta (>= 2.2.2),
+Description: OpenSesame plugin for Tobii eye trackers through Titta
+ This plugin for the OpenSesame experiment builder calibrates
+ and records Tobii eye trackers through Titta, with items for
+ calibration, recording, messages, gaze plotting and saving the
+ data. It needs the PsychoPy backend.
