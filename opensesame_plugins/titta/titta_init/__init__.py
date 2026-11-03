@@ -207,11 +207,7 @@ controls = [
         "tooltip": "Enable waitBlanking on operator screen"
     }, {
         "type": "text",
-        "label": "\n\nTitta is a toolbox for using eye trackers from Tobii Pro AB with Python, specifically offering integration with PsychoPy.\n\n\
-Cite as:\n\nNiehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox for creating PsychToolbox and Psychopy experiments with Tobii eye trackers. Behavior Research Methods. doi: 10.3758/s13428-020-01358-8\n\n\
-Please mention: Bob Rosbag as creator of this plugin\n\n\
-For questions, bug reports or to check for updates on Titta, please visit https://github.com/marcus-nystrom/Titta.\n\n\
-To minimize the risk of missing samples, Titta uses TittaPy, a C++ wrapper around the Tobii SDK, to pull samples made available from the eye tracker."
+        "label": "Cite as:\n\nNiehorster, D.C., Andersson, R. & Nystrom, M. (2020). Titta: A toolbox for creating PsychToolbox and Psychopy experiments with Tobii eye trackers. Behavior Research Methods. doi: 10.3758/s13428-020-01358-8"
     }, {
         "type": "text",
         "label": "<small><b>Note:</b> A Titta Init item at the beginning of the experiment is needed for initialization of the Eye Tracker</small>"
