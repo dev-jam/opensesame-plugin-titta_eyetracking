@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.0.4] - 2026-11-04
+
+- fixed: since 7.0.1, installing or updating the plugin with pip failed in OpenSesame on Windows: the plugin declared psychopy as a dependency, and pip then also installs the requirements of the psychopy that OpenSesame ships, among them pywinhook, which has no wheel for Python 3.13 and doesn't build without swig; psychopy is no longer declared (it comes with OpenSesame, and the items need its backend anyway)
+
 ## [7.0.3] - 2026-11-03
 
 - compact text on init item for visibility
@@ -227,7 +231,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.3...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.4...HEAD
+[7.0.4]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.3...7.0.4
 [7.0.3]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.2...7.0.3
 [7.0.2]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.1...7.0.2
 [7.0.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/6.1.1...7.0.1

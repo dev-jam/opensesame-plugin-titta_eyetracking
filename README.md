@@ -21,6 +21,7 @@ To minimize the risk of missing samples, Titta uses TittaPy, a C++ wrapper aroun
 
 - OpenSesame 4.0 or 4.1 with the PsychoPy backend; the items are hidden for other backends.
 - Titta 2.2.2 or newer (installed with the plugin).
+- PsychoPy, which comes with OpenSesame (it is not installed with the plugin).
 
 
 ## License
