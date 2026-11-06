@@ -1,6 +1,6 @@
 # OpenSesame Plugin: Titta Eye Tracking
 
-*Copyright, 2023, Bob Rosbag, Diederick C. Niehorster & Marcus Nyström*
+*Copyright (C) 2023-2026 Bob Rosbag, Diederick C. Niehorster & Marcus Nyström*
 
 ## About
 
@@ -26,9 +26,9 @@ To minimize the risk of missing samples, Titta uses TittaPy, a C++ wrapper aroun
 
 ## License
 
-This software is distributed under the terms of the GNU General Public License 3. The full license should be included in the file `COPYING`, or can be obtained from:
+This plugin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version (GPL-3.0-or-later).
 
-- <http://www.gnu.org/licenses/gpl.txt>
+The full license text is in the file `COPYING`, and is also available at <https://www.gnu.org/licenses/gpl-3.0.html>.
 
 This plugin contains works of others.
 
