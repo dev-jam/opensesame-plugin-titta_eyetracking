@@ -1,3 +1,9 @@
+opensesame-plugin-titta-eyetracking (7.0.5-1) trixie; urgency=medium
+
+  * New upstream release.
+
+ -- Bob Rosbag <debian@bobrosbag.nl>  Fri, 06 Nov 2026 21:53:43 +0100
+
 opensesame-plugin-titta-eyetracking (7.0.4-1) trixie; urgency=medium
 
   * New upstream release.
