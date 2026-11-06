@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [7.0.5] - 2026-11-06
 
 - changed: the licence is stated as GPL-3.0-or-later (README, `__license__`); the source files carry a copyright notice instead of the header of the OpenSesame example plugin; the copyright years in the README run from the first release; the authors e-mail is mail@bobrosbag.nl
 
@@ -235,7 +235,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.4...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.5...HEAD
+[7.0.5]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.4...7.0.5
 [7.0.4]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.3...7.0.4
 [7.0.3]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.2...7.0.3
 [7.0.2]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.1...7.0.2
