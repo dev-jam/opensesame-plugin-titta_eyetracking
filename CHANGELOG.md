@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [7.0.6] - 2026-11-08
 
 - readme and package description: a list of the items, installation with pip, SMITE link, the doi of the Titta article as a link (as in the Titta readme)
 - item descriptions (shown for new items) say what each item does, in the same form for all items; items in saved experiments keep their description
@@ -240,7 +240,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.5...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.6...HEAD
+[7.0.6]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.5...7.0.6
 [7.0.5]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.4...7.0.5
 [7.0.4]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.3...7.0.4
 [7.0.3]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.2...7.0.3
