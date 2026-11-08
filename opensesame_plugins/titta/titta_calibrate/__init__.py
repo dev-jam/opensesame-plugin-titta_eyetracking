@@ -1,7 +1,7 @@
 # Copyright (C) 2023-2026 Bob Rosbag <mail@bobrosbag.nl>, Diederick C. Niehorster, Marcus Nyström
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-"""Titta item to start calibration"""
+"""Titta Eye Tracking - calibrates the eye tracker"""
 
 from .. import __version__
 

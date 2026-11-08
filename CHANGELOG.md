@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - readme and package description: a list of the items, installation with pip, SMITE link, the doi of the Titta article as a link (as in the Titta readme)
+- item descriptions (shown for new items) say what each item does, in the same form for all items; items in saved experiments keep their description
 
 ## [7.0.5] - 2026-11-06
 
