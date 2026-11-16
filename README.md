@@ -27,7 +27,7 @@ To minimize the risk of missing samples, Titta uses TittaPy, a C++ wrapper aroun
 - **Titta Send Message** sends a message to the recording, e.g. to mark an event.
 - **Titta Plot Gaze** shows the gaze position on the stimulus display and/or the operator display, until a response key is pressed or the timeout has passed.
 - **Titta Stop Recording** stops the recording.
-- **Titta Save Data** saves the recording as `subject-<nr>.h5` in the folder of the log file (`subject-<nr>_1.h5`, ... when that file exists), and can also export it to tsv files. In dummy mode no data is saved.
+- **Titta Save Data** saves the recording as `subject-<nr>.h5` in the folder of the log file (`subject-<nr>_1.h5`, ... when that file exists), and can also export every table in it to tsv files (`subject-<nr>_<table>.tsv`) and, with its own checkbox, the eye images to png files (`subject-<nr>_eye_image/<k>.png`, with the date and time added to the folder name when it exists; image `<k>` belongs to row `<k>` of `subject-<nr>_eye_metadata.tsv`; eye images are only in the file when they were recorded). A failed export is a warning in the log and doesn't end the experiment; the data stays in the `.h5` file. In dummy mode no data is saved.
 
 
 ## Requirements

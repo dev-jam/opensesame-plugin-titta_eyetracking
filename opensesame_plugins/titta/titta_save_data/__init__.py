@@ -12,10 +12,19 @@ controls = [
     {
         "type": "checkbox",
         "var": "tsv_export",
-        "label": "Additionally export data to tsv",
+        "label": "Additionally export data to tsv files",
         "name": "checkbox_tsv_export",
-        "tooltip": "Additionally export data to tsv"
-    },  {
+        "tooltip": "Additionally export data to tsv files"
+    }, {
+        "type": "checkbox",
+        "var": "png_export",
+        "label": "Additionally export eye images to png files",
+        "name": "checkbox_png_export",
+        "tooltip": "Additionally export eye images to png files"
+    }, {
+        "type": "text",
+        "label": "<small>A failed export is a warning in the log; the experiment continues</small>"
+    }, {
         "type": "text",
         "label": "<small><b>Note:</b> A Titta Init item at the beginning of the experiment is needed for initialization of the Eye Tracker</small>"
     }, {
