@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.1.0] - 2026-11-16
+
+- changed: the tsv export of save data exports every table in the HDF5 file (also time_sync, notification, eye_metadata and log)
+- added: save data can export the eye images as png files in a folder `<data file>_eye_image` (own checkbox, off by default; an existing folder is never written into: the new folder gets the date and time); new dependencies h5py and pillow
+- removed: the merged tsv file (`<data file>_data_merged.tsv`, gaze, messages and external signal sorted by time) is no longer written
+- changed: a failed tsv or png export is a warning in the log and no longer ends the experiment; a table or image that fails doesn't stop the others
+
 ## [7.0.6] - 2026-11-08
 
 - readme and package description: a list of the items, installation with pip, SMITE link, the doi of the Titta article as a link (as in the Titta readme)
@@ -240,7 +247,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.6...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.1.0...HEAD
+[7.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.6...7.1.0
 [7.0.6]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.5...7.0.6
 [7.0.5]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.4...7.0.5
 [7.0.4]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.3...7.0.4
