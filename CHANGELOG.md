@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [7.1.0] - 2026-11-16
 
 - changed: the tsv export of save data exports every table in the HDF5 file (also time_sync, notification, eye_metadata and log)
