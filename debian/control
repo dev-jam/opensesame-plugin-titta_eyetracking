@@ -19,7 +19,9 @@ Architecture: all
 # when they are.
 Depends: ${misc:Depends},
          ${python3:Depends},
+         python3-h5py,
          python3-pandas,
+         python3-pil,
          python3-tables,
          python3-titta (>= 2.2.2),
 Description: OpenSesame plugin for Tobii eye trackers through Titta
