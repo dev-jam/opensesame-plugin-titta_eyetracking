@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "opensesame-plugin-titta-eyetracking"
-version = "7.1.0"
+version = "7.1.1"
 description = "OpenSesame plugin for Tobii eye trackers through Titta: calibration, recording, messages and gaze plotting"
 authors = ["Bob Rosbag <mail@bobrosbag.nl>"]
 readme = "README.md"
