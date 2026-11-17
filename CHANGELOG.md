@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [7.1.1] - 2026-11-17
 
 - fixed: on Windows with Python 3.12 or later (e.g. the Python 3.13 installer of OpenSesame 4.1.22), Titta's calibration stopped at its first text with `ctypes.ArgumentError: argument 5: TypeError: expected LP_c_ubyte instance`: a bug in pyglet 1.x, which PsychoPy uses on Windows (since Python 3.12 `ctypes.wintypes.BYTE` is unsigned); the init item now works around it
