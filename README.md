@@ -35,6 +35,7 @@ To minimize the risk of missing samples, Titta uses TittaPy, a C++ wrapper aroun
 - OpenSesame 4.0 or 4.1 with the PsychoPy backend; the items are hidden for other backends.
 - Titta 2.2.2 or newer (installed with the plugin).
 - PsychoPy, which comes with OpenSesame (it is not installed with the plugin).
+- On Windows: preferably the OpenSesame installer for Python 3.10 (e.g. `opensesame_4.1.22-py310-win64-1.exe`). PsychoPy 2025.1.1, which OpenSesame 4.1.22 ships, supports Python 3.8 to 3.10, and on Windows it uses pyglet 1.4.11, whose text fails with Python 3.12 and later. With the Python 3.12 and 3.13 installers the init item works around that pyglet bug.
 
 
 ## Installation
