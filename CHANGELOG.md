@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [7.1.1] - 2026-11-17
+
+- fixed: on Windows with Python 3.12 or later (e.g. the Python 3.13 installer of OpenSesame 4.1.22), Titta's calibration stopped at its first text with `ctypes.ArgumentError: argument 5: TypeError: expected LP_c_ubyte instance`: a bug in pyglet 1.x, which PsychoPy uses on Windows (since Python 3.12 `ctypes.wintypes.BYTE` is unsigned); the init item now works around it
+- readme: on Windows, preferably use the OpenSesame installer for Python 3.10
+
 ## [7.1.0] - 2026-11-16
 
 - changed: the tsv export of save data exports every table in the HDF5 file (also time_sync, notification, eye_metadata and log)
@@ -247,7 +252,8 @@ Lots of polishing
 
 Initial release of OpenSesame Eye Tracking plugin with Titta.
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.1.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.1.1...HEAD
+[7.1.1]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.1.0...7.1.1
 [7.1.0]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.6...7.1.0
 [7.0.6]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.5...7.0.6
 [7.0.5]: https://github.com/dev-jam/opensesame-plugin-titta_eyetracking/compare/7.0.4...7.0.5
