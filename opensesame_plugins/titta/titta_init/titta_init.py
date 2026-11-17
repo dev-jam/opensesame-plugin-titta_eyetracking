@@ -26,6 +26,7 @@ import os
 
 from libopensesame.exceptions import OSException
 
+from ..pyglet_text_fix import fix_pyglet_text
 from ..qt_titta_item import QtTittaItem
 from ..titta_item import TittaItem
 
@@ -88,6 +89,8 @@ class TittaInit(TittaItem):
         self._init_var()
         if self.var.canvas_backend != 'psycho':
             raise OSException('Titta only supports PsychoPy as backend')
+        if fix_pyglet_text():
+            self._show_message('Applied the pyglet 1.x text fix for Python 3.12 and later')
         self.settings = self._make_settings()
         if self.operator:
             self._check_operator_screen()

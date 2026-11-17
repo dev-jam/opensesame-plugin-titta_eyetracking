@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- fixed: on Windows with Python 3.12 or later (e.g. the Python 3.13 installer of OpenSesame 4.1.22), Titta's calibration stopped at its first text with `ctypes.ArgumentError: argument 5: TypeError: expected LP_c_ubyte instance`: a bug in pyglet 1.x, which PsychoPy uses on Windows (since Python 3.12 `ctypes.wintypes.BYTE` is unsigned); the init item now works around it
+
 ## [7.1.0] - 2026-11-16
 
 - changed: the tsv export of save data exports every table in the HDF5 file (also time_sync, notification, eye_metadata and log)
